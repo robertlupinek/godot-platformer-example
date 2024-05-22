@@ -1,0 +1,43 @@
+[gd_scene load_steps=10 format=3 uid="uid://dd64m2gtmdvrw"]
+
+[ext_resource type="Script" path="res://scripts/player/player_movement.gd" id="1_bhge8"]
+[ext_resource type="Shader" path="res://shaders/flash.gdshader" id="1_r4wub"]
+[ext_resource type="SpriteFrames" uid="uid://8hyayw66bd0r" path="res://animations/ani_player.tres" id="2_oc4sb"]
+[ext_resource type="Script" path="res://sounds/player_animate.gd" id="3_6xh0c"]
+[ext_resource type="AudioStream" uid="uid://dalseq7ik0b8g" path="res://sounds/soundfx/hurt.wav" id="3_k04md"]
+[ext_resource type="PackedScene" uid="uid://dnqddk2cybhsp" path="res://scenes/cameras/camera_in_game.tscn" id="3_ps3tp"]
+[ext_resource type="AudioStream" uid="uid://r61e1ydgkbk" path="res://sounds/soundfx/jump.wav" id="5_m3kem"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m6w3u"]
+size = Vector2(6, 15)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qbnsu"]
+shader = ExtResource("1_r4wub")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+floor_stop_on_slope = false
+floor_snap_length = 4.6
+script = ExtResource("1_bhge8")
+ground_speed = 2500.0
+air_speed = 1000.0
+jump_sound = ExtResource("5_m3kem")
+hurt_sound = ExtResource("3_k04md")
+gravity = 700.0
+
+[node name="CameraIngame" parent="." instance=ExtResource("3_ps3tp")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_m6w3u")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("character")]
+material = SubResource("ShaderMaterial_qbnsu")
+position = Vector2(0, -8)
+sprite_frames = ExtResource("2_oc4sb")
+animation = &"farting"
+script = ExtResource("3_6xh0c")
+character = NodePath("..")
+metadata/_edit_group_ = true

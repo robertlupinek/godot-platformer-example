@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://et6oervuf086"]
+
+[ext_resource type="AudioStream" uid="uid://b1440ivxfhdob" path="res://sounds/music/dark-muludy.mp3" id="1_lfpl8"]
+[ext_resource type="Texture2D" uid="uid://bx1p11j5ebl0e" path="res://images/icons/song.png" id="2_jwghr"]
+[ext_resource type="Script" path="res://scripts/icons/icon_ide_only.gd" id="3_q86rm"]
+
+[node name="DarkSong" type="Node2D"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_lfpl8")
+autoplay = true
+bus = &"Music"
+
+[node name="SongIcon" type="Sprite2D" parent="."]
+texture = ExtResource("2_jwghr")
+script = ExtResource("3_q86rm")

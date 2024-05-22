@@ -1,0 +1,114 @@
+[gd_scene load_steps=16 format=3 uid="uid://dd64m2gtmdvrw"]
+
+[ext_resource type="Script" path="res://scripts/player/player_movement.gd" id="1_bhge8"]
+[ext_resource type="Shader" path="res://shaders/flash.gdshader" id="1_r4wub"]
+[ext_resource type="SpriteFrames" uid="uid://8hyayw66bd0r" path="res://animations/ani_player.tres" id="2_oc4sb"]
+[ext_resource type="AudioStream" uid="uid://dalseq7ik0b8g" path="res://sounds/soundfx/hurt.wav" id="3_k04md"]
+[ext_resource type="PackedScene" uid="uid://dnqddk2cybhsp" path="res://scenes/cameras/camera_in_game.tscn" id="3_ps3tp"]
+[ext_resource type="AudioStream" uid="uid://bjiaif337wyw2" path="res://sounds/soundfx/dash.wav" id="4_vvaxd"]
+[ext_resource type="AudioStream" uid="uid://b8gshngw6me2m" path="res://sounds/soundfx/jump.wav" id="5_m3kem"]
+[ext_resource type="PackedScene" uid="uid://h5lvwtk1iolv" path="res://scenes/effects/light_test.tscn" id="8_4ym7f"]
+[ext_resource type="Script" path="res://scripts/player/player_animate.gd" id="8_d14ph"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m6w3u"]
+size = Vector2(6, 16)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qbnsu"]
+shader = ExtResource("1_r4wub")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_lb51e"]
+resource_name = "flash"
+length = 0.3625
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"_flash_sprite"
+}, {
+"args": [],
+"method": &"_flash_sprite"
+}, {
+"args": [],
+"method": &"_flash_sprite"
+}, {
+"args": [],
+"method": &"_flash_sprite"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r31hw"]
+_data = {
+"flash": SubResource("Animation_lb51e")
+}
+
+[sub_resource type="Curve" id="Curve_cht06"]
+_data = [Vector2(0.0147059, 0.325701), 0.0, 0.0, 0, 0, Vector2(1, 0.908878), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ltc2j"]
+offsets = PackedFloat32Array(0.100543, 0.127717, 0.904891, 0.92663)
+colors = PackedColorArray(0.294118, 0.188235, 0.588235, 0.454902, 0.296066, 0.188477, 0.586577, 1, 0.299422, 0.252785, 0.389959, 1, 0.243525, 0.122589, 0.395879, 0)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+z_index = 1
+collision_mask = 16385
+floor_stop_on_slope = false
+floor_snap_length = 4.6
+script = ExtResource("1_bhge8")
+ground_speed = 2500.0
+air_speed = 1000.0
+jump_sound = ExtResource("5_m3kem")
+hurt_sound = ExtResource("3_k04md")
+dash_sound = ExtResource("4_vvaxd")
+gravity = 700.0
+dash_time = 0.5
+dash_speed = 6000.0
+
+[node name="CameraIngame" parent="." instance=ExtResource("3_ps3tp")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
+shape = SubResource("RectangleShape2D_m6w3u")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("character")]
+z_index = 1
+material = SubResource("ShaderMaterial_qbnsu")
+position = Vector2(0, -8)
+sprite_frames = ExtResource("2_oc4sb")
+animation = &"run"
+frame_progress = 0.389812
+script = ExtResource("8_d14ph")
+character = NodePath("..")
+metadata/_edit_group_ = true
+
+[node name="FlashAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_r31hw")
+}
+
+[node name="Line2D" type="Line2D" parent="."]
+show_behind_parent = true
+points = PackedVector2Array(0, 0)
+width = 14.0
+width_curve = SubResource("Curve_cht06")
+default_color = Color(0.364706, 0.4, 0.701961, 1)
+gradient = SubResource("Gradient_ltc2j")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="LightTest" parent="." instance=ExtResource("8_4ym7f")]
+visible = false
+color = Color(0.919556, 0.996287, 0.975446, 1)
+energy = 1.84
+texture_scale = 5.56

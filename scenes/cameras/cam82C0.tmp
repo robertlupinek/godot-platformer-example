@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnqddk2cybhsp"]
+
+[ext_resource type="Script" path="res://scenes/cameras/hud_text.gd" id="1_gseqm"]
+[ext_resource type="FontFile" uid="uid://b5q43pbvnoom7" path="res://fonts/m5x7.ttf" id="1_iamsr"]
+
+[node name="CameraIngame" type="Camera2D"]
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+position_smoothing_speed = 30.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -142.0
+offset_top = -79.0
+offset_right = 142.0
+offset_bottom = -60.0
+theme_override_colors/font_shadow_color = Color(0, 0.423529, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/normal_font = ExtResource("1_iamsr")
+text = "HP: 10/10     SCORE: 100"
+script = ExtResource("1_gseqm")

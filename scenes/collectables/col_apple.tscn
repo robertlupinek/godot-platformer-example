@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://chlxkbsjjasnt"]
+
+[ext_resource type="Texture2D" uid="uid://twuniaqqhdk8" path="res://images/sprites/collectables/apple.png" id="1_8lipp"]
+[ext_resource type="Script" path="res://scripts/collectables/col_apple.gd" id="1_oo7vs"]
+[ext_resource type="AudioStream" uid="uid://b71eg3ag5vuvx" path="res://sounds/soundfx/power_up.wav" id="3_gr0ac"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0i0qr"]
+size = Vector2(10, 10)
+
+[sub_resource type="Gradient" id="Gradient_i5bpe"]
+offsets = PackedFloat32Array(0, 0.432796)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4aju7"]
+gradient = SubResource("Gradient_i5bpe")
+fill = 1
+fill_from = Vector2(0.508547, 0.474359)
+fill_to = Vector2(0.923077, 0)
+
+[node name="CollectApple" type="Area2D"]
+z_index = 1
+script = ExtResource("1_oo7vs")
+sound = ExtResource("3_gr0ac")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_8lipp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0i0qr")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.78
+texture = SubResource("GradientTexture2D_4aju7")
+texture_scale = 3.57
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

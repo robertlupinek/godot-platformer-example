@@ -1,0 +1,120 @@
+[gd_scene load_steps=11 format=3 uid="uid://bkhmv4grtyrlq"]
+
+[ext_resource type="PackedScene" uid="uid://c54j17hstl58y" path="res://GameObjects/Blocks/block_test.tscn" id="1_3igcm"]
+[ext_resource type="Texture2D" uid="uid://boaknw3b31cyu" path="res://Images/Backgrounds/tumblr_inline_n258pmUe5i1qhwjx8.png" id="1_h1nuu"]
+[ext_resource type="Texture2D" uid="uid://cltldhfqb86e0" path="res://Images/Sprites/Platform.png" id="1_i1wck"]
+[ext_resource type="PackedScene" uid="uid://dbrtvovxgb6e8" path="res://GameObjects/Blocks/jump_through.tscn" id="4_oqi7f"]
+[ext_resource type="PackedScene" uid="uid://dd64m2gtmdvrw" path="res://GameObjects/Player/player.tscn" id="5_qa3s4"]
+[ext_resource type="PackedScene" uid="uid://dlsl6ytpgf531" path="res://GameObjects/Blocks/jump_through_moving_platform.tscn" id="6_bjiv6"]
+[ext_resource type="Script" path="res://Scripts/moving_platform.gd" id="6_g5le2"]
+
+[sub_resource type="Curve2D" id="Curve2D_2x713"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 768, 0, 0, 0, 0, 0, 768, 0, 0, -5.35143, 0, 5.35143, 1152, 0, 0, 0, 0, 0, 768, 0)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_xoo00"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 384, 0, -11.3137, -21.2132, 11.3137, 21.2132, 384, -240, 0, 0, 0, 0, 384, 0)
+}
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iatqy"]
+size = Vector2(80, 449)
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(-8, 176)
+
+[node name="TumblrInlineN258PmUe5i1Qhwjx8" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(552, 344)
+texture = ExtResource("1_h1nuu")
+region_enabled = true
+region_rect = Rect2(-299, -400, 2224, 4068)
+
+[node name="JumpThroughMovingPlatform" parent="." instance=ExtResource("6_bjiv6")]
+position = Vector2(-696, 24)
+curve = SubResource("Curve2D_2x713")
+
+[node name="JumpThrough" parent="." instance=ExtResource("4_oqi7f")]
+position = Vector2(40, -16)
+
+[node name="JumpThrough2" parent="." instance=ExtResource("4_oqi7f")]
+position = Vector2(80, -164)
+
+[node name="StaticBody2D10" parent="." instance=ExtResource("1_3igcm")]
+position = Vector2(1935.23, -2486.97)
+rotation = -0.265022
+scale = Vector2(177.623, 9.24671)
+skew = -1.44872
+
+[node name="StaticBody2D" parent="." instance=ExtResource("1_3igcm")]
+position = Vector2(456, 112)
+rotation = -0.23911
+scale = Vector2(20, 1)
+
+[node name="MovingPlatform" type="Path2D" parent="."]
+position = Vector2(152, -88)
+curve = SubResource("Curve2D_xoo00")
+script = ExtResource("6_g5le2")
+speed = 150.0
+
+[node name="PathFollow2D" type="PathFollow2D" parent="MovingPlatform"]
+position = Vector2(384, 0)
+rotates = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="MovingPlatform/PathFollow2D"]
+remote_path = NodePath("../../AnimatableBody2D")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="MovingPlatform"]
+texture_repeat = 2
+position = Vector2(384, 0)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovingPlatform/AnimatableBody2D"]
+position = Vector2(0, 215.5)
+shape = SubResource("RectangleShape2D_iatqy")
+
+[node name="Sprite2D" type="Sprite2D" parent="MovingPlatform/AnimatableBody2D"]
+texture_repeat = 2
+position = Vector2(0, 216)
+texture = ExtResource("1_i1wck")
+region_enabled = true
+region_rect = Rect2(20, 1, 81, 450)
+
+[node name="StaticBody2D4" parent="." instance=ExtResource("1_3igcm")]
+position = Vector2(824, 1.90735e-06)
+rotation = -0.523598
+scale = Vector2(10, 1)
+
+[node name="StaticBody2D5" parent="." instance=ExtResource("1_3igcm")]
+position = Vector2(928, 216)
+rotation = -0.23911
+scale = Vector2(10, 1)
+
+[node name="StaticBody2D6" parent="." instance=ExtResource("1_3igcm")]
+position = Vector2(56, 120)
+rotation = -2.61799
+scale = Vector2(10, 1)
+
+[node name="StaticBody2D7" parent="." instance=ExtResource("1_3igcm")]
+position = Vector2(8894.16, -4262.08)
+rotation = -0.547971
+scale = Vector2(97.1838, 2.55991)
+skew = -1.15714
+
+[node name="StaticBody2D8" parent="." instance=ExtResource("1_3igcm")]
+position = Vector2(328, 216)
+rotation = -1.57079
+scale = Vector2(10, 1)
+
+[node name="StaticBody2D9" parent="." instance=ExtResource("1_3igcm")]
+position = Vector2(8, -7.99998)
+rotation = -1.57079
+scale = Vector2(10, 1)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("5_qa3s4")]
+position = Vector2(168, 56)

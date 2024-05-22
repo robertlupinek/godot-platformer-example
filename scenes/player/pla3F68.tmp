@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dd64m2gtmdvrw"]
+
+[ext_resource type="SpriteFrames" uid="uid://8hyayw66bd0r" path="res://Images/Sprites/new_sprite_frames.tres" id="1_lm081"]
+[ext_resource type="Script" path="res://Scripts/player_movement.gd" id="1_offy8"]
+[ext_resource type="Script" path="res://Scripts/player_animate.gd" id="3_ijpie"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m6w3u"]
+size = Vector2(20, 26)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+floor_stop_on_slope = false
+floor_snap_length = 10.1
+script = ExtResource("1_offy8")
+ground_speed = 2500.0
+air_speed = 1000.0
+gravity = 700.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_m6w3u")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("1_lm081")
+script = ExtResource("3_ijpie")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true

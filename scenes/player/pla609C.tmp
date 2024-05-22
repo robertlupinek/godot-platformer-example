@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://dd64m2gtmdvrw"]
+
+[ext_resource type="SpriteFrames" uid="uid://8hyayw66bd0r" path="res://Images/Sprites/new_sprite_frames.tres" id="1_lm081"]
+[ext_resource type="Script" path="res://Scripts/player_movement.gd" id="1_offy8"]
+[ext_resource type="Script" path="res://Scripts/player_animate.gd" id="3_ijpie"]
+[ext_resource type="Script" path="res://GameObjects/Player/Camera2D.gd" id="4_8yp0i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m6w3u"]
+size = Vector2(6, 15)
+
+[node name="Player" type="CharacterBody2D"]
+floor_stop_on_slope = false
+floor_snap_length = 4.6
+script = ExtResource("1_offy8")
+ground_speed = 2500.0
+air_speed = 1000.0
+gravity = 700.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_m6w3u")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("character")]
+position = Vector2(0, -8)
+sprite_frames = ExtResource("1_lm081")
+animation = &"idle"
+frame_progress = 0.420543
+script = ExtResource("3_ijpie")
+character = NodePath("..")
+metadata/_edit_group_ = true
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+script = ExtResource("4_8yp0i")
+player = NodePath("..")

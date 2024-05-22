@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://dvk2skk8dd7x1"]
+
+[ext_resource type="Script" path="res://scripts/obsticals/spikes.gd" id="1_3hmh8"]
+[ext_resource type="Texture2D" uid="uid://d3m1003mjdc3f" path="res://images/sprites/obsticals/spikes.png" id="1_ovpgc"]
+[ext_resource type="Shader" path="res://shaders/shine.gdshader" id="2_ysul1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w86nt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ehlx2"]
+size = Vector2(30, 31.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p7t5n"]
+shader = ExtResource("2_ysul1")
+shader_parameter/shine_color = Color(1, 1, 1, 0.776471)
+shader_parameter/line_width = 0.08
+shader_parameter/angle = 1.1781
+shader_parameter/speed = 2.0
+shader_parameter/wait_cycles = 3.6
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_46cnx"]
+size = Vector2(30, 31)
+
+[node name="Spikes" type="Area2D" groups=["hurt"]]
+z_index = -10
+material = SubResource("ShaderMaterial_w86nt")
+script = ExtResource("1_3hmh8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2.25)
+shape = SubResource("RectangleShape2D_ehlx2")
+
+[node name="Spikes" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_p7t5n")
+position = Vector2(0, -2)
+texture = ExtResource("1_ovpgc")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_46cnx")

@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnqddk2cybhsp"]
+
+[ext_resource type="Script" path="res://scripts/camera/camera.gd" id="1_v8qho"]
+
+[node name="CameraIngame" type="Camera2D"]
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+position_smoothing_speed = 30.0
+script = ExtResource("1_v8qho")
+
+[node name="FlashRect" type="ColorRect" parent="."]
+offset_left = -161.0
+offset_top = -94.0
+offset_right = 165.0
+offset_bottom = 93.0
+color = Color(1, 1, 1, 0)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = 100
+position = Vector2(0, -95)
+amount = 60
+lifetime = 5.0
+emission_shape = 3
+emission_rect_extents = Vector2(300, 1)
+spread = 52.79
+gravity = Vector2(10, 80)
+initial_velocity_max = 14.42
+linear_accel_min = 14.42
+linear_accel_max = 69.23
+scale_amount_max = 2.0
+color = Color(0.92818, 1, 0.999923, 1)

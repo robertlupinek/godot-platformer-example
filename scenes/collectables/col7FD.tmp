@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://chlxkbsjjasnt"]
+
+[ext_resource type="Texture2D" uid="uid://twuniaqqhdk8" path="res://Images/Sprites/collectables/apple.png" id="1_8lipp"]
+[ext_resource type="Script" path="res://Scenes/Collectables/col_apple.gd" id="1_qlals"]
+[ext_resource type="AudioStream" uid="uid://b71eg3ag5vuvx" path="res://Sounds/SoundFX/power_up.wav" id="3_gr0ac"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0i0qr"]
+size = Vector2(10, 10)
+
+[node name="CollectApple" type="Area2D"]
+z_index = 1
+script = ExtResource("1_qlals")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_8lipp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0i0qr")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("3_gr0ac")
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

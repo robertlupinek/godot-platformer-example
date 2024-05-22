@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://bkhmv4grtyrlq"]
+
+[ext_resource type="PackedScene" uid="uid://c54j17hstl58y" path="res://GameObjects/Blocks/BlockTest.tscn" id="1_3igcm"]
+[ext_resource type="Texture2D" uid="uid://cltldhfqb86e0" path="res://Images/Sprites/Platform.png" id="1_i1wck"]
+[ext_resource type="Script" path="res://Scripts/SetToMouse.gd" id="2_kblmu"]
+[ext_resource type="Script" path="res://Scripts/FallingBox.gd" id="3_0jp0l"]
+[ext_resource type="Texture2D" uid="uid://tegb5upukx3h" path="res://Images/Sprites/Box.png" id="3_7godu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uydws"]
+size = Vector2(32, 32)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rb60n"]
+rough = true
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g7kir"]
+size = Vector2(32, 32)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="StaticBody2D" parent="." instance=ExtResource("1_3igcm")]
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(88, 160)
+script = ExtResource("2_kblmu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource("RectangleShape2D_uydws")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
+texture = ExtResource("1_i1wck")
+
+[node name="BouncyBlock" type="RigidBody2D" parent="."]
+position = Vector2(104, 72)
+physics_material_override = SubResource("PhysicsMaterial_rb60n")
+script = ExtResource("3_0jp0l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BouncyBlock"]
+position = Vector2(-0.500244, -0.416977)
+shape = SubResource("RectangleShape2D_g7kir")
+
+[node name="Sprite2D" type="Sprite2D" parent="BouncyBlock/CollisionShape2D"]
+position = Vector2(0.500244, 0.416977)
+texture = ExtResource("3_7godu")
+
+[node name="StaticBody2D3" parent="." instance=ExtResource("1_3igcm")]
+position = Vector2(64, 320)
+
+[node name="StaticBody2D4" parent="." instance=ExtResource("1_3igcm")]
+position = Vector2(96, 320)
+
+[node name="StaticBody2D5" parent="." instance=ExtResource("1_3igcm")]
+position = Vector2(128, 320)
+
+[node name="StaticBody2D6" parent="." instance=ExtResource("1_3igcm")]
+position = Vector2(160, 320)
+
+[node name="StaticBody2D7" parent="." instance=ExtResource("1_3igcm")]
+position = Vector2(32, 304)
+
+[node name="StaticBody2D8" parent="." instance=ExtResource("1_3igcm")]
+position = Vector2(16, 272)
+
+[node name="StaticBody2D9" parent="." instance=ExtResource("1_3igcm")]
+position = Vector2(16, 240)

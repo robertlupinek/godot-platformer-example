@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://dx683gjesmtug"]
+
+[ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1_3vind"]
+[ext_resource type="FontFile" uid="uid://b5q43pbvnoom7" path="res://fonts/m5x7.ttf" id="1_yyfio"]
+[ext_resource type="Script" path="res://scripts/ui/hud_hp_text.gd" id="2_65kl8"]
+[ext_resource type="Script" path="res://scripts/ui/hud_score_text.gd" id="3_o4pkr"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_3vind")
+
+[node name="Hud" type="CanvasLayer" parent="."]
+scale = Vector2(4, 4)
+transform = Transform2D(4, 0, 0, 4, 0, 0)
+
+[node name="HPText" type="RichTextLabel" parent="Hud"]
+offset_left = 1.0
+offset_right = 83.0
+offset_bottom = 17.0
+theme_override_colors/font_shadow_color = Color(0.205733, 0.273762, 0.168673, 1)
+theme_override_colors/font_outline_color = Color(0.327778, 0.483783, 0.775155, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 2
+theme_override_fonts/normal_font = ExtResource("1_yyfio")
+text = "HP
+"
+script = ExtResource("2_65kl8")
+
+[node name="ScoreText" type="RichTextLabel" parent="Hud"]
+offset_left = 192.0
+offset_top = 0.25
+offset_right = 274.0
+offset_bottom = 17.25
+theme_override_colors/font_shadow_color = Color(0.279355, 0.405175, 0.611817, 1)
+theme_override_colors/font_outline_color = Color(0.327778, 0.483783, 0.775155, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 2
+theme_override_fonts/normal_font = ExtResource("1_yyfio")
+text = "SCORE"
+script = ExtResource("3_o4pkr")

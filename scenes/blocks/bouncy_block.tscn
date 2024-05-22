@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5pthjkpo0jb4"]
+
+[ext_resource type="Script" path="res://scripts/falling_box.gd" id="1_qf6qu"]
+[ext_resource type="Texture2D" uid="uid://bsr6obhjvxdp1" path="res://images/sprites/log.png" id="2_45q86"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rb60n"]
+rough = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g7kir"]
+size = Vector2(76, 32)
+
+[node name="BouncyBlock" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_rb60n")
+gravity_scale = 0.0
+script = ExtResource("1_qf6qu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_g7kir")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+position = Vector2(1.90735e-06, 0)
+scale = Vector2(2.4375, 1)
+texture = ExtResource("2_45q86")
