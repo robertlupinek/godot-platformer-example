@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://scripts/player/player_movement.gd" id="1_bhge8"]
 [ext_resource type="Shader" path="res://shaders/flash.gdshader" id="1_r4wub"]
+[ext_resource type="SpriteFrames" uid="uid://8hyayw66bd0r" path="res://animations/ani_player.tres" id="2_oc4sb"]
 [ext_resource type="AudioStream" uid="uid://dalseq7ik0b8g" path="res://sounds/soundfx/hurt.wav" id="3_k04md"]
 [ext_resource type="PackedScene" uid="uid://dnqddk2cybhsp" path="res://scenes/cameras/camera_in_game.tscn" id="3_ps3tp"]
 [ext_resource type="AudioStream" uid="uid://bjiaif337wyw2" path="res://sounds/soundfx/dash.wav" id="4_vvaxd"]
 [ext_resource type="AudioStream" uid="uid://b8gshngw6me2m" path="res://sounds/soundfx/jump.wav" id="5_m3kem"]
-[ext_resource type="SpriteFrames" uid="uid://8hyayw66bd0r" path="res://scenes/player/ani_player.tres" id="7_81ax6"]
 [ext_resource type="PackedScene" uid="uid://h5lvwtk1iolv" path="res://scenes/effects/light_test.tscn" id="8_4ym7f"]
 [ext_resource type="Script" path="res://scripts/player/player_animate.gd" id="8_d14ph"]
 
@@ -70,7 +70,6 @@ jump_sound = ExtResource("5_m3kem")
 hurt_sound = ExtResource("3_k04md")
 dash_sound = ExtResource("4_vvaxd")
 gravity = 700.0
-extra_jumps = 3
 dash_time = 0.5
 dash_speed = 6000.0
 
@@ -85,8 +84,8 @@ metadata/_edit_group_ = true
 z_index = 1
 material = SubResource("ShaderMaterial_qbnsu")
 position = Vector2(0, -8)
-sprite_frames = ExtResource("7_81ax6")
-animation = &"hurt"
+sprite_frames = ExtResource("2_oc4sb")
+animation = &"farting"
 script = ExtResource("8_d14ph")
 character = NodePath("..")
 metadata/_edit_group_ = true
@@ -115,4 +114,3 @@ energy = 0.65
 texture_scale = 5.56
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="AnimatedSprite2D" method="_on_animation_finished"]
-[connection signal="animation_looped" from="AnimatedSprite2D" to="AnimatedSprite2D" method="_on_animation_looped"]

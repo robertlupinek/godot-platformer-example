@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://73iao253val"]
-
-[ext_resource type="Script" path="res://scripts/singletons/game_fx.gd" id="1_3hltc"]
-
-[node name="GameFx" type="Node2D"]
-script = ExtResource("1_3hltc")

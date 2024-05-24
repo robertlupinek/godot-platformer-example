@@ -24,10 +24,17 @@ func _process(delta):
 	## If moving and midair - midair sprite selection doesn't rely on character horizontal movement.
 	if !character.is_on_floor() and !character.is_on_wall():
 		if character.velocity.y < 0:
-			play("jump")
+			if not animation == "flip":
+				play("jump")
 		else:
-			play("jump_down")
+			if not animation == "flip":
+				play("jump_down")
 			
 	## If moving and midair - midair sprite selection doesn't rely on character horizontal movement.
 	if !character.is_on_floor() and character.is_on_wall():
-		play("wall")			
+		play("wall")	
+		
+
+func _on_animation_looped():
+	if animation == "flip":
+		play("jump")

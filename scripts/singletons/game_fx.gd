@@ -2,16 +2,15 @@ extends Node2D
 
 signal screen_flash
 signal screen_shake
+signal is_snowing
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-	
 	
 #####
 # Signal functions
@@ -21,3 +20,6 @@ func _screen_shake(timer: float ):
 	
 func _screen_flash(color: Color = Color(255,255,255,1) ):
 	emit_signal("screen_flash")	
+	
+func _is_snowing(on: bool = true ):
+	emit_signal("is_snowing")	

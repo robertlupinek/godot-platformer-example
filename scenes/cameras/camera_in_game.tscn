@@ -15,9 +15,10 @@ offset_right = 165.0
 offset_bottom = 93.0
 color = Color(1, 1, 1, 0)
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+[node name="SnowParticles" type="CPUParticles2D" parent="."]
 z_index = 100
 position = Vector2(0, -95)
+emitting = false
 amount = 60
 lifetime = 5.0
 emission_shape = 3

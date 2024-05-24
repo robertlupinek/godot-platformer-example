@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://dolf7pell5gbb"]
+
+[ext_resource type="Script" path="res://scenes/effects/wand_sparks.gd" id="1_opeq0"]
+
+[sub_resource type="Gradient" id="Gradient_510bs"]
+offsets = PackedFloat32Array(0.266304, 0.779891)
+colors = PackedColorArray(0.107795, 0.344802, 1, 0.619608, 0.462745, 0.568627, 1, 0.615686)
+
+[node name="WandSparks" type="CPUParticles2D"]
+emitting = false
+amount = 20
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 0.41
+emission_shape = 1
+emission_sphere_radius = 5.31
+spread = 77.88
+gravity = Vector2(0, 0)
+initial_velocity_min = 52.89
+initial_velocity_max = 153.85
+angle_min = -124.7
+angle_max = 41.5
+scale_amount_min = 5.81
+scale_amount_max = 10.61
+color = Color(0.296039, 0.558055, 1, 1)
+color_ramp = SubResource("Gradient_510bs")
+script = ExtResource("1_opeq0")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

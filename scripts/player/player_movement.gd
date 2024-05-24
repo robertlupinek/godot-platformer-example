@@ -29,7 +29,7 @@ var is_player : bool = false
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 @export var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 # Configure jumping
-var coyote_timer = Timer.new()
+var coyote_timer: Timer = Timer.new()
 @export var coyote_time : float = 0.1
 var landed : bool = false
 # Double jump and so on :)
@@ -40,17 +40,19 @@ var current_extra_jumps = extra_jumps
 @export var max_velocity_y: float = 250
 
 # Setup for taking damage
-var hurt_timer = Timer.new()
+var hurt_timer: Timer  = Timer.new()
 var hurt_time: float = 1 
 var flash: bool = false
 
 # Dashing
-var dash_timer = Timer.new()
+var dash_timer: Timer  = Timer.new()
 @export var dash_time: float = 1 
 @export var dash_speed: float = 200
-var dash_line_timer = Timer.new()
+var dash_line_timer: Timer  = Timer.new()
 var dash_line_time: float = 0.1
 
+# Bullets
+var bullet_star_shot: PackedScene = preload("res://scenes/bullets/bullet_star_shot.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -67,7 +69,6 @@ func _ready():
 	add_child(dash_line_timer)
 	dash_line_timer.one_shot = true		
 
-	
 func _process(delta):
 	# Start the flash animation
 	if not hurt_timer.is_stopped():
@@ -76,12 +77,9 @@ func _process(delta):
 		$AnimatedSprite2D.material.set_shader_parameter("active",false)
 		$FlashAnimation.stop()
 
-
-
 func _physics_process(delta):
 	
 	# Player State
-	
 	## Handle all changes required for when landing on the floor or being midair.
 	if not is_on_floor():
 		## Midair
@@ -137,6 +135,7 @@ func _physics_process(delta):
 		## Only count the jump as a "double" or "tripple" or more jump IF the coyote timer has stopped indicating you are not on the ground.
 		if coyote_timer.is_stopped():
 			current_extra_jumps -= 1
+			$AnimatedSprite2D.play("flip")
 		velocity.y = jump_velocity
 		# Play the jump sound
 		AudioManager._play(jump_sound)
@@ -160,8 +159,14 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_dash"):
 		if dash_timer.is_stopped():
 			velocity.y = 0
+			
 			dash_timer.start(dash_time)
 			dash_line_timer.start(dash_line_time)
+			# Flip the facing direction for the player if on the wall 
+			# so we can dash OFF the wall vs INTO it
+			if is_on_wall() and not is_on_floor():
+				facing = -facing
+			# Set the movement speed on the x axis based on the direction the player is facing ( -1 = left, 1 = right )
 			velocity.x = facing * dash_speed
 			AudioManager._play(dash_sound)
 			$Line2D.clear_points()
@@ -180,6 +185,10 @@ func _physics_process(delta):
 	if velocity.y > max_velocity_y:
 		velocity.y	= max_velocity_y
 		
+	# Shooting
+	if Input.is_action_just_pressed("ui_attack_1"):
+		_shoot(bullet_star_shot)
+		
 	# Handle physics
 	move_and_slide()
 	
@@ -188,6 +197,20 @@ func _physics_process(delta):
 		_the_ending()
 		
 	# Debug info
+
+func _shoot(bullet: PackedScene):
+	var shot = bullet.instantiate()
+	var world = get_tree().current_scene  
+	
+	if is_on_wall() and not is_on_floor():
+		shot.scale.x = -facing
+	else:
+		shot.scale.x = facing
+	shot.velocity = Vector2(200*shot.scale.x,0)
+	shot.position = Vector2(position.x + 8 * shot.scale.x,position.y)
+	world.add_child(shot)
+	AudioManager._play(dash_sound)
+
 	
 func _hurt(dmg: int):
 	if hurt_timer.is_stopped():
@@ -220,5 +243,4 @@ func _the_ending():
 	GameState.hp = GameState.max_hp
 	GameState.score = 0
 	get_tree().change_scene_to_file('res://scenes/levels/1st_level.tscn')
-
 

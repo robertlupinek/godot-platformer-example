@@ -3,6 +3,7 @@ extends Camera2D
 var shake_timer = Timer.new()
 var rand = RandomNumberGenerator.new()
 var flash_alpha: float = 0
+var snowing: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -12,6 +13,7 @@ func _ready():
 	# Connect signals from GameFx 
 	GameFx.connect("screen_flash",_flash)
 	GameFx.connect("screen_shake",_shake)
+	GameFx.connect("is_snowing",_snow)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -34,10 +36,18 @@ func _process(delta):
 	if Input.is_action_just_pressed("test_1"):
 		GameFx.screen_shake.emit(0.5)
 		GameFx.screen_flash.emit(1,Color(206, 242, 0,1))
+		if snowing:
+			snowing = false
+		else:
+			snowing = true
+		GameFx.is_snowing.emit(snowing)
 		
 func _shake(time: float = 0.5):
 	shake_timer.start(time)
 			
+func _snow(on: bool = true):
+	# Triggered via the GameFX is_snowing emitter.
+	$SnowParticles.emitting = on
 		
 func _flash(alpha: float = 1.0, color: Color = Color(255,255,255,1) ):
 	# Triggered via the GameFX screen_flash emitter.

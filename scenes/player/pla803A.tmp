@@ -70,7 +70,6 @@ jump_sound = ExtResource("5_m3kem")
 hurt_sound = ExtResource("3_k04md")
 dash_sound = ExtResource("4_vvaxd")
 gravity = 700.0
-extra_jumps = 3
 dash_time = 0.5
 dash_speed = 6000.0
 
@@ -86,7 +85,7 @@ z_index = 1
 material = SubResource("ShaderMaterial_qbnsu")
 position = Vector2(0, -8)
 sprite_frames = ExtResource("7_81ax6")
-animation = &"hurt"
+animation = &"flip"
 script = ExtResource("8_d14ph")
 character = NodePath("..")
 metadata/_edit_group_ = true
