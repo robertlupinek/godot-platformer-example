@@ -12,6 +12,7 @@ fill_to = Vector2(0.991453, 0)
 
 [node name="LightTest" type="PointLight2D"]
 color = Color(1, 1, 0.67451, 1)
+energy = 8.03
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.572549)
 texture = SubResource("GradientTexture2D_5w2g8")

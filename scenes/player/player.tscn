@@ -111,7 +111,7 @@ round_precision = 2
 
 [node name="LightTest" parent="." instance=ExtResource("8_4ym7f")]
 color = Color(0.919556, 0.996287, 0.975446, 1)
-energy = 0.65
+energy = 0.5
 texture_scale = 5.56
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="AnimatedSprite2D" method="_on_animation_finished"]

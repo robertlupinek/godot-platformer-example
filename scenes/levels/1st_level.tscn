@@ -33,7 +33,7 @@ offset_right = 60.0
 offset_bottom = 20.0
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-color = Color(0.0360693, 0.0455718, 0.0433176, 1)
+color = Color(0.0218996, 0.0125256, 0.00588287, 1)
 energy = 16.0
 blend_mode = 1
 shadow_color = Color(0, 0, 0, 0.372549)

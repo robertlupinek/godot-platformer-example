@@ -3,7 +3,7 @@ extends Camera2D
 var shake_timer = Timer.new()
 var rand = RandomNumberGenerator.new()
 var flash_alpha: float = 0
-var snowing: bool = false
+@export var snowing: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
