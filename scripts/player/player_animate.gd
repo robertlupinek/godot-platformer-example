@@ -11,8 +11,7 @@ func _ready():
 func _process(delta):
 	
 	# If moving - Put any animation selection logic in this section for animations at change based on if the character moving horizontally or not.
-	if character.direction:
-		scale = Vector2(sign(character.direction),1)
+	if character.direction_x:
 		## If moving while on floor
 		if character.is_on_floor():
 				play("run")

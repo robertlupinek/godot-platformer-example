@@ -94,6 +94,7 @@ animations = [{
 size = Vector2(9, 4)
 
 [node name="BulletStarShot" type="Area2D"]
+collision_mask = 5
 script = ExtResource("1_vcimj")
 shot_sound = ExtResource("2_2htlu")
 hit_sound = ExtResource("3_3mxfe")

@@ -1,0 +1,71 @@
+[gd_scene load_steps=12 format=3 uid="uid://dtayfa2h71u78"]
+
+[ext_resource type="Shader" path="res://shaders/flash.gdshader" id="1_2kxe0"]
+[ext_resource type="Script" path="res://Images/Sprites/enemies/movement/enemy_patroller.gd" id="1_2moaw"]
+[ext_resource type="Texture2D" uid="uid://cods1w1y0e1qm" path="res://images/sprites/enemies/BadRedDemon.png" id="1_3s7d8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vie4v"]
+size = Vector2(19, 26)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_umain"]
+shader = ExtResource("1_2kxe0")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(0, 0.855955, 0.858143, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8h33"]
+atlas = ExtResource("1_3s7d8")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfe6x"]
+atlas = ExtResource("1_3s7d8")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jvk8y"]
+atlas = ExtResource("1_3s7d8")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hq4tv"]
+atlas = ExtResource("1_3s7d8")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rwrsb"]
+atlas = ExtResource("1_3s7d8")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yq1ui"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8h33")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kfe6x")
+}, {
+"duration": 1.7,
+"texture": SubResource("AtlasTexture_jvk8y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hq4tv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rwrsb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="RedDemon" type="CharacterBody2D" groups=["enemies"]]
+script = ExtResource("1_2moaw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 3)
+shape = SubResource("RectangleShape2D_vie4v")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_umain")
+sprite_frames = SubResource("SpriteFrames_yq1ui")
+frame_progress = 0.581538
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(28, -2)

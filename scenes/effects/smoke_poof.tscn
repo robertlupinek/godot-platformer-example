@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://bc0e15ad0s4fi"]
+
+[ext_resource type="Texture2D" uid="uid://bw01to7iiqqnd" path="res://images/sprites/effects/smoke.png" id="1_6inaq"]
+[ext_resource type="Script" path="res://scenes/effects/particle_remove_on_finished.gd" id="2_uw4qd"]
+
+[sub_resource type="Curve" id="Curve_0d8mv"]
+_data = [Vector2(0.0909091, 0.874275), 0.0, 0.0, 0, 0, Vector2(0.886364, 0.132495), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_g7674"]
+offsets = PackedFloat32Array(0.160326, 0.415761, 0.918478)
+colors = PackedColorArray(0.997059, 0.967134, 0.952659, 1, 0.815686, 0.815686, 0.545098, 1, 0, 0, 0, 1)
+
+[node name="SmokePoof" type="CPUParticles2D"]
+emitting = false
+amount = 30
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.71
+randomness = 0.07
+texture = ExtResource("1_6inaq")
+emission_shape = 1
+emission_sphere_radius = 4.59
+spread = 180.0
+gravity = Vector2(0, 160)
+initial_velocity_min = 171.35
+initial_velocity_max = 209.81
+angle_min = -138.5
+angle_max = 214.6
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_0d8mv")
+color_ramp = SubResource("Gradient_g7674")
+script = ExtResource("2_uw4qd")

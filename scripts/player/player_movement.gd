@@ -22,7 +22,7 @@ signal hurt
 var speed: float = ground_speed
 # Current horizontal friction.  Changes based on state of playing 
 var friction : float = ground_speed
-var direction : float
+var direction_x : float
 var facing : float = 1
 var is_player : bool = false
 
@@ -70,8 +70,10 @@ func _ready():
 	dash_line_timer.one_shot = true		
 
 func _process(delta):
+	
 	# Start the flash animation
 	if not hurt_timer.is_stopped():
+		
 		$FlashAnimation.play("flash")
 	else:
 		$AnimatedSprite2D.material.set_shader_parameter("active",false)
@@ -107,20 +109,20 @@ func _physics_process(delta):
 		coyote_timer.start(coyote_time)
 		## Reset extra jumps count
 		current_extra_jumps = extra_jumps
-		if direction != 0:
+		if direction_x != 0:
 			if velocity.y > 30:
 				velocity.y = 30
 		
 	# Horizontal movement
-	## Get the input direction and handle the movement/deceleration.
+	## Get the input direction_x and handle the movement/deceleration.
 	## As good practice, you should replace UI actions with custom gameplay actions.
-	direction = Input.get_axis("ui_left", "ui_right")
-	## Get the direction the player is facing
-	if direction != 0:
-		facing = direction
+	direction_x = Input.get_axis("ui_left", "ui_right")
+	## Get the direction_x the player is facing
+	if direction_x != 0:
+		facing = sign(direction_x)
 	
-	if direction:
-		velocity.x += direction * speed * delta
+	if direction_x:
+		velocity.x += direction_x * speed * delta
 	## Applying horizontal friction always redcucing speed vs when not moving.  Uncomment `else` only apply friction when not moving.
 	else:
 		velocity.x = move_toward(velocity.x, 0, friction)
@@ -142,7 +144,7 @@ func _physics_process(delta):
 
 		## Wall jump off the wall a bit.  Make sure we are also not on the floor.  This would be weird trying to jump over walls and just bouncing back.
 		if is_on_wall() and not is_on_floor():
-			velocity.x = wall_jump_velocity_x * -direction 
+			velocity.x = wall_jump_velocity_x * -direction_x  
 		## Stop the coyote timer
 		coyote_timer.stop()
 	## Release jump button
@@ -162,11 +164,11 @@ func _physics_process(delta):
 			
 			dash_timer.start(dash_time)
 			dash_line_timer.start(dash_line_time)
-			# Flip the facing direction for the player if on the wall 
+			# Flip the facing directio_xn for the player if on the wall 
 			# so we can dash OFF the wall vs INTO it
 			if is_on_wall() and not is_on_floor():
 				facing = -facing
-			# Set the movement speed on the x axis based on the direction the player is facing ( -1 = left, 1 = right )
+			# Set the movement speed on the x axis based on the directio_xn the player is facing ( -1 = left, 1 = right )
 			velocity.x = facing * dash_speed
 			AudioManager._play(dash_sound)
 			$Line2D.clear_points()
@@ -189,6 +191,8 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_attack_1"):
 		_shoot(bullet_star_shot)
 		
+	_set_animation()
+	
 	# Handle physics
 	move_and_slide()
 	
@@ -197,6 +201,9 @@ func _physics_process(delta):
 		_the_ending()
 		
 	# Debug info
+	
+func _set_animation():
+	$AnimatedSprite2D.scale.x = facing
 
 func _shoot(bullet: PackedScene):
 	var shot = bullet.instantiate()
@@ -211,8 +218,7 @@ func _shoot(bullet: PackedScene):
 	world.add_child(shot)
 	AudioManager._play(dash_sound)
 
-	
-func _hurt(dmg: int):
+func _hurt(dmg_received: float):
 	if hurt_timer.is_stopped():
 		hurt_timer.start(hurt_time)
 		# Emit the signal in game state for injured player
@@ -226,8 +232,8 @@ func _hurt(dmg: int):
 		# Effects
 		
 		# Reduce health
-		if GameState.hp - dmg > 0:
-			GameState.hp -= dmg	
+		if GameState.hp - dmg_received > 0:
+			GameState.hp -= dmg_received	
 		else:
 			GameState.hp = 0
 			_the_ending()

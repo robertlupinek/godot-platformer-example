@@ -1,0 +1,123 @@
+[gd_scene load_steps=19 format=3 uid="uid://bkekpc0ksdxy8"]
+
+[ext_resource type="Texture2D" uid="uid://criec17fibysx" path="res://images/sprites/effects/monster_face.png" id="1_viasx"]
+[ext_resource type="Script" path="res://scenes/effects/monster_face.gd" id="2_crls1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bgny2"]
+atlas = ExtResource("1_viasx")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_um41i"]
+atlas = ExtResource("1_viasx")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8t3y"]
+atlas = ExtResource("1_viasx")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h41x8"]
+atlas = ExtResource("1_viasx")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qu04u"]
+atlas = ExtResource("1_viasx")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8jdys"]
+atlas = ExtResource("1_viasx")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6le2"]
+atlas = ExtResource("1_viasx")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1a1k"]
+atlas = ExtResource("1_viasx")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gedfc"]
+atlas = ExtResource("1_viasx")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwu33"]
+atlas = ExtResource("1_viasx")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k71ul"]
+atlas = ExtResource("1_viasx")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6omrh"]
+atlas = ExtResource("1_viasx")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cton7"]
+atlas = ExtResource("1_viasx")
+region = Rect2(768, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frqv6"]
+atlas = ExtResource("1_viasx")
+region = Rect2(832, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1j3o2"]
+atlas = ExtResource("1_viasx")
+region = Rect2(896, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qxtdb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bgny2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_um41i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8t3y")
+}, {
+"duration": 1.9,
+"texture": SubResource("AtlasTexture_h41x8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qu04u")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_8jdys")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n6le2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1a1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gedfc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwu33")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k71ul")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_6omrh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cton7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frqv6")
+}, {
+"duration": 20.0,
+"texture": SubResource("AtlasTexture_1j3o2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="MonsterFace" type="AnimatedSprite2D"]
+z_index = -10
+sprite_frames = SubResource("SpriteFrames_qxtdb")
+frame_progress = 0.707649
+script = ExtResource("2_crls1")

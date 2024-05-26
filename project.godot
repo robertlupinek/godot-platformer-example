@@ -23,6 +23,7 @@ GameState="*res://scripts/singletons/game_state.gd"
 
 [debug]
 
+gdscript/warnings/unused_parameter=0
 canvas_items/debug_redraw_color=Color(1, 0.2, 0.2, 0.501961)
 
 [display]

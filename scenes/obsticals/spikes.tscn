@@ -23,6 +23,7 @@ size = Vector2(30, 31)
 [node name="Spikes" type="Area2D" groups=["hurt"]]
 z_index = -10
 material = SubResource("ShaderMaterial_w86nt")
+collision_mask = 7
 script = ExtResource("1_3hmh8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
