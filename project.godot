@@ -28,6 +28,8 @@ canvas_items/debug_redraw_color=Color(1, 0.2, 0.2, 0.501961)
 
 [display]
 
+window/size/viewport_width=1024
+window/size/viewport_height=640
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 

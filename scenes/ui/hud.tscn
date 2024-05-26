@@ -5,23 +5,16 @@
 [ext_resource type="Script" path="res://scripts/ui/hud_score_text.gd" id="3_o4pkr"]
 [ext_resource type="Texture2D" uid="uid://dwp22fo7w5obu" path="res://images/sprites/collectables/heart.png" id="4_34cyj"]
 
-[node name="Control" type="Control"]
-z_index = 100
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Hud" type="CanvasLayer" parent="."]
+[node name="Hud" type="CanvasLayer"]
 scale = Vector2(4, 4)
 transform = Transform2D(4, 0, 0, 4, 0, 0)
 
-[node name="ColorRect" type="ColorRect" parent="Hud"]
+[node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 533.0
 offset_bottom = 18.0
 color = Color(0, 0.803922, 0.807843, 0.0784314)
 
-[node name="HPText" type="RichTextLabel" parent="Hud"]
+[node name="HPText" type="RichTextLabel" parent="."]
 offset_left = 17.0
 offset_right = 287.0
 offset_bottom = 17.0
@@ -35,7 +28,7 @@ theme_override_font_sizes/normal_font_size = 16
 text = "HP"
 script = ExtResource("2_65kl8")
 
-[node name="ScoreText" type="RichTextLabel" parent="Hud"]
+[node name="ScoreText" type="RichTextLabel" parent="."]
 offset_left = 192.0
 offset_top = 0.25
 offset_right = 274.0
@@ -49,6 +42,6 @@ theme_override_fonts/normal_font = ExtResource("1_yyfio")
 text = "SCORE"
 script = ExtResource("3_o4pkr")
 
-[node name="Heart" type="Sprite2D" parent="Hud"]
+[node name="Heart" type="Sprite2D" parent="."]
 position = Vector2(8.5, 7)
 texture = ExtResource("4_34cyj")
