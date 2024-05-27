@@ -41,6 +41,8 @@ anchors_preset = -1
 anchor_top = 0.265
 anchor_right = 1.0
 anchor_bottom = 0.421
+offset_top = -62.6
+offset_bottom = -62.6
 color = Color(0.501961, 1, 1, 0.133333)
 
 [node name="ColorRect2" type="ColorRect" parent="MainMenu"]
@@ -51,6 +53,8 @@ anchors_preset = -1
 anchor_top = 0.265
 anchor_right = 1.0
 anchor_bottom = 0.28
+offset_top = -62.6
+offset_bottom = -62.6
 color = Color(0.501961, 1, 1, 0.133333)
 
 [node name="ColorRect3" type="ColorRect" parent="MainMenu"]
@@ -61,14 +65,16 @@ anchors_preset = -1
 anchor_top = 0.406
 anchor_right = 1.0
 anchor_bottom = 0.421
+offset_top = -62.6
+offset_bottom = -62.6
 color = Color(0.501961, 1, 1, 0.133333)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MainMenu"]
 layout_mode = 2
-offset_left = 357.0
-offset_top = 164.0
-offset_right = 857.0
-offset_bottom = 364.0
+offset_left = 349.0
+offset_top = 104.0
+offset_right = 849.0
+offset_bottom = 304.0
 theme_override_fonts/normal_font = ExtResource("2_1nvai")
 theme_override_font_sizes/normal_font_size = 120
 bbcode_enabled = true

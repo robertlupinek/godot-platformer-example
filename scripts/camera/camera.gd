@@ -14,6 +14,7 @@ func _ready():
 	GameFx.connect("screen_flash",_flash)
 	GameFx.connect("screen_shake",_shake)
 	GameFx.connect("is_snowing",_snow)
+	GameFx.is_snowing.emit(true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
