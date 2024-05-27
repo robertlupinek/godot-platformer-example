@@ -1,0 +1,41 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://cat2g16dps4au"]
+
+[ext_resource type="FontFile" uid="uid://b5q43pbvnoom7" path="res://fonts/m5x7.ttf" id="1_g5oy6"]
+[ext_resource type="StyleBox" uid="uid://cnq1f3v2ywgit" path="res://themes/button_style_box_normal.tres" id="2_esycw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1uye0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_np5gs"]
+bg_color = Color(0.0372558, 0.085197, 0.216553, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l1i8y"]
+bg_color = Color(0.100991, 0.081839, 0.15772, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.94525, 0.951351, 0.9701, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+anti_aliasing = false
+
+[resource]
+default_font = ExtResource("1_g5oy6")
+Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("1_g5oy6")
+Button/styles/disabled = SubResource("StyleBoxFlat_1uye0")
+Button/styles/focus = SubResource("StyleBoxFlat_np5gs")
+Button/styles/hover = SubResource("StyleBoxFlat_l1i8y")
+Button/styles/normal = ExtResource("2_esycw")

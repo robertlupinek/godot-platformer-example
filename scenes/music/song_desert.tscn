@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjfh2ykpylvt"]
+
+[ext_resource type="AudioStream" uid="uid://d1p36d13kgoeo" path="res://sounds/music/desert-jimmy-jam.mp3" id="1_5xi4v"]
+[ext_resource type="Texture2D" uid="uid://bx1p11j5ebl0e" path="res://images/icons/song.png" id="2_lmqdk"]
+[ext_resource type="Script" path="res://scripts/icons/icon_ide_only.gd" id="3_kxtrv"]
+
+[node name="DarkSong" type="Node2D"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_5xi4v")
+autoplay = true
+bus = &"Music"
+
+[node name="SongIcon" type="Sprite2D" parent="."]
+texture = ExtResource("2_lmqdk")
+script = ExtResource("3_kxtrv")

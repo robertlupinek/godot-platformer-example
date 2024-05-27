@@ -248,5 +248,5 @@ func _flash_sprite():
 func _the_ending():
 	GameState.hp = GameState.max_hp
 	GameState.score = 0
-	get_tree().change_scene_to_file('res://scenes/levels/1st_level.tscn')
+	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
 
