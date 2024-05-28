@@ -1,0 +1,141 @@
+[gd_scene load_steps=8 format=3 uid="uid://ca825so8f60ft"]
+
+[ext_resource type="FontFile" uid="uid://b5q43pbvnoom7" path="res://fonts/m5x7.ttf" id="1_t7bj8"]
+[ext_resource type="Theme" uid="uid://cat2g16dps4au" path="res://themes/menu_theme.tres" id="2_0g5vf"]
+[ext_resource type="Script" path="res://scenes/menus/SoundHSlider.gd" id="2_72gn8"]
+[ext_resource type="Script" path="res://scenes/menus/Button.gd" id="3_kwakh"]
+[ext_resource type="AudioStream" uid="uid://bjiaif337wyw2" path="res://sounds/soundfx/dash.wav" id="4_4xrrt"]
+[ext_resource type="PackedScene" uid="uid://t02nqvqvswgd" path="res://scenes/music/song_main_menu.tscn" id="6_3bxid"]
+[ext_resource type="Script" path="res://scripts/buttons/button_goto_scene.gd" id="6_5n34a"]
+
+[node name="Node2D" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+z_as_relative = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.265
+anchor_right = 1.0
+anchor_bottom = 0.421
+offset_top = -62.6
+offset_bottom = -62.6
+color = Color(0.501961, 1, 1, 0.133333)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+z_index = -1
+z_as_relative = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.265
+anchor_right = 1.0
+anchor_bottom = 0.28
+offset_top = -62.6
+offset_bottom = -62.6
+color = Color(0.501961, 1, 1, 0.133333)
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+z_index = -1
+z_as_relative = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.406
+anchor_right = 1.0
+anchor_bottom = 0.421
+offset_top = -62.6
+offset_bottom = -62.6
+color = Color(0.501961, 1, 1, 0.133333)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.163
+anchor_right = 1.0
+anchor_bottom = 0.46
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("1_t7bj8")
+theme_override_font_sizes/normal_font_size = 120
+bbcode_enabled = true
+text = "[center][pulse freq=1 color=#ffffff40 ease=-1.0]SETTINGS[/pulse][/center]
+
+"
+
+[node name="SoundButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.016
+anchor_top = 0.342
+anchor_right = 0.112
+anchor_bottom = 0.4
+offset_right = 8.0
+offset_bottom = 8.0
+theme = ExtResource("2_0g5vf")
+text = "Sound"
+script = ExtResource("3_kwakh")
+sound = ExtResource("4_4xrrt")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.012
+anchor_top = 0.424
+anchor_right = 0.984
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SoundText" type="RichTextLabel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_t7bj8")
+theme_override_font_sizes/normal_font_size = 24
+text = "Sound Effects Volume"
+
+[node name="SoundHSlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_0g5vf")
+max_value = 1.0
+step = 0.01
+script = ExtResource("2_72gn8")
+bus_name = "SFX"
+
+[node name="MusicText" type="RichTextLabel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_t7bj8")
+theme_override_font_sizes/normal_font_size = 24
+text = "Music Volume"
+
+[node name="MusicHSlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_0g5vf")
+max_value = 1.0
+step = 0.01
+script = ExtResource("2_72gn8")
+bus_name = "Music"
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.016
+anchor_top = 0.692
+anchor_right = 0.112
+anchor_bottom = 0.739
+offset_right = 8.0
+offset_bottom = 8.0
+theme = ExtResource("2_0g5vf")
+text = "Back"
+script = ExtResource("6_5n34a")
+new_scene = "res://scenes/menus/main_menu.tscn"
+
+[node name="DarkSong" parent="." instance=ExtResource("6_3bxid")]
+position = Vector2(-242, 173)
+
+[connection signal="pressed" from="SoundButton" to="SoundButton" method="_on_pressed"]

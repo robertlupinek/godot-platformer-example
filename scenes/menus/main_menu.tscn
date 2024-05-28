@@ -19,21 +19,19 @@ func _process(delta):
 	pass
 "
 
-[node name="MainMenu" type="Node2D"]
-
-[node name="MainMenu" type="Control" parent="."]
+[node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 1023.0
-offset_bottom = 640.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource("1_4ie68")
 script = ExtResource("2_4ye5d")
 
-[node name="ColorRect" type="ColorRect" parent="MainMenu"]
+[node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
 z_as_relative = false
 layout_mode = 1
@@ -45,7 +43,7 @@ offset_top = -62.6
 offset_bottom = -62.6
 color = Color(0.501961, 1, 1, 0.133333)
 
-[node name="ColorRect2" type="ColorRect" parent="MainMenu"]
+[node name="ColorRect2" type="ColorRect" parent="."]
 z_index = -1
 z_as_relative = false
 layout_mode = 1
@@ -57,7 +55,7 @@ offset_top = -62.6
 offset_bottom = -62.6
 color = Color(0.501961, 1, 1, 0.133333)
 
-[node name="ColorRect3" type="ColorRect" parent="MainMenu"]
+[node name="ColorRect3" type="ColorRect" parent="."]
 z_index = -1
 z_as_relative = false
 layout_mode = 1
@@ -69,20 +67,22 @@ offset_top = -62.6
 offset_bottom = -62.6
 color = Color(0.501961, 1, 1, 0.133333)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MainMenu"]
-layout_mode = 2
-offset_left = 349.0
-offset_top = 104.0
-offset_right = 849.0
-offset_bottom = 304.0
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.163
+anchor_right = 1.0
+anchor_bottom = 0.46
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("2_1nvai")
 theme_override_font_sizes/normal_font_size = 120
 bbcode_enabled = true
-text = "[pulse freq=1 color=#ffffff40 ease=-1.0]WIZINJA[/pulse]
+text = "[center][pulse freq=1 color=#ffffff40 ease=-1.0]WIZINJA[/pulse][/center]
 
 "
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 1
 anchors_preset = -1
@@ -95,18 +95,18 @@ offset_right = 100.0
 offset_bottom = 104.0
 grow_horizontal = 2
 
-[node name="Button" type="Button" parent="MainMenu/VBoxContainer"]
+[node name="Button" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 text = "PLAY"
 script = SubResource("GDScript_thjx3")
 
-[node name="Button2" type="Button" parent="MainMenu/VBoxContainer"]
+[node name="Button2" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 text = "SETTING"
 
-[node name="Button3" type="Button" parent="MainMenu/VBoxContainer"]
+[node name="Button3" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 text = "QUIT"
@@ -114,5 +114,6 @@ text = "QUIT"
 [node name="VolcanoSong" parent="." instance=ExtResource("4_tif0w")]
 position = Vector2(177, -68)
 
-[connection signal="pressed" from="MainMenu/VBoxContainer/Button" to="MainMenu" method="_on_button_pressed"]
-[connection signal="pressed" from="MainMenu/VBoxContainer/Button3" to="MainMenu" method="_on_button_3_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_button_3_pressed"]

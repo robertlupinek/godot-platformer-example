@@ -12,8 +12,12 @@ func _process(delta):
 
 # Play
 func _on_button_pressed():
-	get_tree().change_scene_to_file("res://scenes/levels/1st_level.tscn")
+	GameState._goto_scene("res://scenes/levels/1st_level.tscn")
 
 # Quit
 func _on_button_3_pressed():
 	get_tree().quit()
+
+
+func _on_button_2_pressed():
+	GameState._goto_scene("res://scenes/menus/settings.tscn")
