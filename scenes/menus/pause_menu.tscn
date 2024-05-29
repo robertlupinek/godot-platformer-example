@@ -1,0 +1,101 @@
+[gd_scene load_steps=4 format=3 uid="uid://buwe2l6riioss"]
+
+[ext_resource type="Script" path="res://scenes/menus/pause_menu.gd" id="1_v80x7"]
+[ext_resource type="Theme" uid="uid://cat2g16dps4au" path="res://themes/menu_theme.tres" id="2_0xxpc"]
+[ext_resource type="FontFile" uid="uid://b5q43pbvnoom7" path="res://fonts/m5x7.ttf" id="3_63rsy"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+
+[node name="PauseMenu" type="Control" parent="."]
+process_mode = 3
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v80x7")
+
+[node name="ColorRect4" type="ColorRect" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.243137, 0.152941, 0.4, 0.584314)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.413
+anchor_right = 0.7
+anchor_bottom = 0.739
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Unpause" type="Button" parent="PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("2_0xxpc")
+text = "UNPAUSE"
+
+[node name="Quit" type="Button" parent="PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("2_0xxpc")
+text = "QUIT"
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu"]
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.265
+anchor_right = 1.0
+anchor_bottom = 0.421
+offset_top = -62.6
+offset_bottom = -62.6
+color = Color(0.501961, 1, 1, 0.133333)
+
+[node name="ColorRect2" type="ColorRect" parent="PauseMenu"]
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.265
+anchor_right = 1.0
+anchor_bottom = 0.28
+offset_top = -62.6
+offset_bottom = -62.6
+color = Color(0.501961, 1, 1, 0.133333)
+
+[node name="ColorRect3" type="ColorRect" parent="PauseMenu"]
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.406
+anchor_right = 1.0
+anchor_bottom = 0.421
+offset_top = -62.6
+offset_bottom = -62.6
+color = Color(0.501961, 1, 1, 0.133333)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.163
+anchor_right = 1.0
+anchor_bottom = 0.46
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("3_63rsy")
+theme_override_font_sizes/normal_font_size = 120
+bbcode_enabled = true
+text = "[center][pulse freq=1 color=#ffffff40 ease=-1.0]PAUSED...[/pulse][/center]
+
+"
+
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Unpause" to="PauseMenu" method="_on_unpause_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Quit" to="PauseMenu" method="_on_quit_pressed"]
