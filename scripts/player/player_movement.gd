@@ -45,10 +45,16 @@ var hurt_time: float = 1
 var flash: bool = false
 
 # Dashing
+# How long to dash
 var dash_timer: Timer  = Timer.new()
 @export var dash_time: float = 1 
+# How long before you can dash again
+var dash_delay_timer: Timer  = Timer.new()
+@export var dash_delay_time: float = 1.5
+# Velocity to dash during dash_time
 @export var dash_speed: float = 200
 var dash_line_timer: Timer  = Timer.new()
+
 var dash_line_time: float = 0.1
 
 # Bullets
@@ -68,6 +74,9 @@ func _ready():
 	# Dash line timer
 	add_child(dash_line_timer)
 	dash_line_timer.one_shot = true		
+	# Dash delay timer
+	add_child(dash_delay_timer)
+	dash_delay_timer.one_shot = true			
 
 func _process(delta):
 	
@@ -121,14 +130,17 @@ func _physics_process(delta):
 	if direction_x != 0:
 		facing = sign(direction_x)
 	
-	if direction_x:
-		velocity.x += direction_x * speed * delta
-	## Applying horizontal friction always redcucing speed vs when not moving.  Uncomment `else` only apply friction when not moving.
-	else:
-		velocity.x = move_toward(velocity.x, 0, friction)
-	## Keep x velocity from going over max velocity
-	if abs(velocity.x) > max_velocity:
-		velocity.x = max_velocity * sign(velocity.x)
+	# Perform normal movement if not dashing
+	if dash_timer.is_stopped():
+		if direction_x:
+			velocity.x += direction_x * speed * delta
+		## Applying horizontal friction always redcucing speed vs when not moving.  Uncomment `else` only apply friction when not moving.
+		else:
+			velocity.x = move_toward(velocity.x, 0, friction)
+		# Normal collisions
+		set_collision_layer_value(2,true)
+		
+
 
 	# Handle jumping.  
 	
@@ -155,48 +167,66 @@ func _physics_process(delta):
 	# Jump down
 	if Input.is_action_just_pressed("ui_down"):
 		if is_on_floor():
-			position.y +=1
+			position.y += 1
 			
 	# Dash
 	if Input.is_action_just_pressed("ui_dash"):
-		if dash_timer.is_stopped():
+		# Only dash if the dash delay time is stopped
+		if dash_delay_timer.is_stopped():
+			# Disable ability for things to collide with player
+			set_collision_layer_value(2,false)
 			velocity.y = 0
+			# Start drawing the line 
+			$Line2DDash.clear_points()
+			$Line2DDash.global_position = Vector2(0,0)
+			$Line2DDash.add_point(global_position)			
 			
+			dash_delay_timer.start(dash_delay_time)
 			dash_timer.start(dash_time)
 			dash_line_timer.start(dash_line_time)
 			# Flip the facing directio_xn for the player if on the wall 
 			# so we can dash OFF the wall vs INTO it
 			if is_on_wall() and not is_on_floor():
 				facing = -facing
-			# Set the movement speed on the x axis based on the directio_xn the player is facing ( -1 = left, 1 = right )
-			velocity.x = facing * dash_speed
+			# Set new velocity
+			velocity.x = dash_speed * facing
 			AudioManager._play(dash_sound)
-			$Line2D.clear_points()
-			$Line2D.global_position = Vector2(0,0)
-			$Line2D.add_point(global_position)
-			
+
+	# Draw the dash line 2d if dashing, else reduce it until it disappears
 	if not dash_line_timer.is_stopped():
-		$Line2D.global_position = Vector2(0,0)
-		$Line2D.add_point(global_position)
-		$Line2D.visible = true
+		$Line2DDash.global_position = Vector2(0,0)
+		$Line2DDash.add_point(global_position)
+		$Line2DDash.visible = true
 	else:
-		if $Line2D.get_point_count() > 0:
-			$Line2D.remove_point(0)
+		if $Line2DDash.get_point_count() > 0:
+			$Line2DDash.remove_point(0)
 			
-	# Enforce a max velociy
-	if velocity.y > max_velocity_y:
-		velocity.y	= max_velocity_y
+
 		
 	# Shooting
 	if Input.is_action_just_pressed("ui_attack_1"):
 		_shoot(bullet_star_shot)
 		
+
+		# 
+		
+	# Set animation and scaling and any animation related fun stuff
 	_set_animation()
 	
 	# Handle physics
+	
+	### Enforce a max velocity.y
+	if velocity.y > max_velocity_y:
+		velocity.y	= max_velocity_y	
+	
+	### Keep x velocity from going over max velocity if not dashing
+	if dash_timer.is_stopped():
+		if abs(velocity.x) > max_velocity:
+			velocity.x = max_velocity * sign(velocity.x)
+		
 	move_and_slide()
 	
-	# Check for moving outside of play boundaries
+	# Set a fall max - can be removed maybe?
 	if position.y >= 1524:
 		_the_ending()
 		
@@ -217,6 +247,7 @@ func _shoot(bullet: PackedScene):
 	shot.position = Vector2(position.x + 8 * shot.scale.x,position.y)
 	world.add_child(shot)
 	AudioManager._play(dash_sound)
+
 
 func _hurt(dmg_received: float):
 	if hurt_timer.is_stopped():

@@ -20,6 +20,13 @@ func _process(delta):
 		if character.is_on_floor():
 			play("idle")	
 
+	# Play animation faster if dashing
+	if not character.dash_timer.is_stopped():
+		play("jump")
+		speed_scale = 10
+	else:
+		speed_scale = 1
+
 	## If moving and midair - midair sprite selection doesn't rely on character horizontal movement.
 	if !character.is_on_floor() and !character.is_on_wall():
 		if character.velocity.y < 0:

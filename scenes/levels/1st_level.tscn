@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://bkhmv4grtyrlq"]
+[gd_scene load_steps=15 format=3 uid="uid://bkhmv4grtyrlq"]
 
 [ext_resource type="PackedScene" uid="uid://dlsl6ytpgf531" path="res://scenes/blocks/jump_through_moving_platform.tscn" id="1_4njqm"]
 [ext_resource type="PackedScene" uid="uid://b3w3xeiym1hbi" path="res://scenes/tilesets/tilemap_1.tscn" id="1_757qf"]
+[ext_resource type="PackedScene" uid="uid://buwe2l6riioss" path="res://scenes/menus/pause_menu.tscn" id="1_wngwv"]
 [ext_resource type="PackedScene" uid="uid://dd64m2gtmdvrw" path="res://scenes/player/player.tscn" id="5_x32ay"]
 [ext_resource type="PackedScene" uid="uid://dtayfa2h71u78" path="res://scenes/enemies/red_demon/RedDemon.tscn" id="8_5ovhb"]
 [ext_resource type="PackedScene" uid="uid://et6oervuf086" path="res://scenes/music/song_dark.tscn" id="8_xkuhg"]
@@ -52,6 +53,8 @@ sources/0 = SubResource("TileSetAtlasSource_wnd5n")
 
 [node name="Level1" type="Node2D"]
 position = Vector2(-8, 176)
+
+[node name="CanvasLayer" parent="." instance=ExtResource("1_wngwv")]
 
 [node name="Player" parent="." instance=ExtResource("5_x32ay")]
 position = Vector2(-48, -66)

@@ -7,4 +7,6 @@ func _ready():
 
 
 func _goto_scene():
+	GameState._save_game()
+	GameState._load_game()
 	GameState._goto_scene(new_scene)

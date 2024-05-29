@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://ca825so8f60ft"]
+[gd_scene load_steps=7 format=3 uid="uid://ca825so8f60ft"]
 
 [ext_resource type="FontFile" uid="uid://b5q43pbvnoom7" path="res://fonts/m5x7.ttf" id="1_t7bj8"]
 [ext_resource type="Theme" uid="uid://cat2g16dps4au" path="res://themes/menu_theme.tres" id="2_0g5vf"]
 [ext_resource type="Script" path="res://scenes/menus/SoundHSlider.gd" id="2_72gn8"]
-[ext_resource type="Script" path="res://scenes/menus/Button.gd" id="3_kwakh"]
-[ext_resource type="AudioStream" uid="uid://bjiaif337wyw2" path="res://sounds/soundfx/dash.wav" id="4_4xrrt"]
+[ext_resource type="Script" path="res://scenes/menus/full_screen_button.gd" id="4_43nc3"]
 [ext_resource type="PackedScene" uid="uid://t02nqvqvswgd" path="res://scenes/music/song_main_menu.tscn" id="6_3bxid"]
 [ext_resource type="Script" path="res://scripts/buttons/button_goto_scene.gd" id="6_5n34a"]
 
@@ -67,20 +66,6 @@ text = "[center][pulse freq=1 color=#ffffff40 ease=-1.0]SETTINGS[/pulse][/center
 
 "
 
-[node name="SoundButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.016
-anchor_top = 0.342
-anchor_right = 0.112
-anchor_bottom = 0.4
-offset_right = 8.0
-offset_bottom = 8.0
-theme = ExtResource("2_0g5vf")
-text = "Sound"
-script = ExtResource("3_kwakh")
-sound = ExtResource("4_4xrrt")
-
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -121,10 +106,22 @@ step = 0.01
 script = ExtResource("2_72gn8")
 bus_name = "Music"
 
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(90, 20)
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 2
+theme = ExtResource("2_0g5vf")
+text = "Full Screen"
+script = ExtResource("4_43nc3")
+
 [node name="BackButton" type="Button" parent="."]
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.016
+anchor_left = 0.012
 anchor_top = 0.692
 anchor_right = 0.112
 anchor_bottom = 0.739
@@ -137,5 +134,3 @@ new_scene = "res://scenes/menus/main_menu.tscn"
 
 [node name="DarkSong" parent="." instance=ExtResource("6_3bxid")]
 position = Vector2(-242, 173)
-
-[connection signal="pressed" from="SoundButton" to="SoundButton" method="_on_pressed"]

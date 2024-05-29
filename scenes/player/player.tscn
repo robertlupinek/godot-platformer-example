@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://scripts/player/player_movement.gd" id="1_bhge8"]
 [ext_resource type="Shader" path="res://shaders/flash.gdshader" id="1_r4wub"]
-[ext_resource type="AudioStream" uid="uid://dalseq7ik0b8g" path="res://sounds/soundfx/hurt.wav" id="3_k04md"]
+[ext_resource type="AudioStream" uid="uid://b8gshngw6me2m" path="res://sounds/soundfx/jump.wav" id="2_seprg"]
+[ext_resource type="AudioStream" uid="uid://dalseq7ik0b8g" path="res://sounds/soundfx/hurt.wav" id="3_ij0q0"]
 [ext_resource type="PackedScene" uid="uid://dnqddk2cybhsp" path="res://scenes/cameras/camera_in_game.tscn" id="3_ps3tp"]
-[ext_resource type="AudioStream" uid="uid://bjiaif337wyw2" path="res://sounds/soundfx/dash.wav" id="4_vvaxd"]
-[ext_resource type="AudioStream" uid="uid://b8gshngw6me2m" path="res://sounds/soundfx/jump.wav" id="5_m3kem"]
+[ext_resource type="AudioStream" uid="uid://bjiaif337wyw2" path="res://sounds/soundfx/dash.wav" id="4_725wk"]
 [ext_resource type="SpriteFrames" uid="uid://8hyayw66bd0r" path="res://scenes/player/ani_player.tres" id="7_81ax6"]
 [ext_resource type="PackedScene" uid="uid://h5lvwtk1iolv" path="res://scenes/effects/light_test.tscn" id="8_4ym7f"]
 [ext_resource type="Script" path="res://scripts/player/player_animate.gd" id="8_d14ph"]
@@ -65,14 +65,12 @@ collision_layer = 2
 floor_stop_on_slope = false
 floor_snap_length = 4.6
 script = ExtResource("1_bhge8")
-ground_speed = 2500.0
-air_speed = 1000.0
-jump_sound = ExtResource("5_m3kem")
-hurt_sound = ExtResource("3_k04md")
-dash_sound = ExtResource("4_vvaxd")
-gravity = 700.0
-dash_time = 0.5
-dash_speed = 6000.0
+jump_sound = ExtResource("2_seprg")
+hurt_sound = ExtResource("3_ij0q0")
+dash_sound = ExtResource("4_725wk")
+dash_time = 0.2
+dash_delay_time = 0.5
+dash_speed = 400.0
 
 [node name="CameraIngame" parent="." instance=ExtResource("3_ps3tp")]
 
@@ -96,7 +94,7 @@ libraries = {
 "": SubResource("AnimationLibrary_r31hw")
 }
 
-[node name="Line2D" type="Line2D" parent="."]
+[node name="Line2DDash" type="Line2D" parent="."]
 show_behind_parent = true
 points = PackedVector2Array(-80, 0, 0, 0)
 width = 14.0
