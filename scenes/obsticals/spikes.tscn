@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dvk2skk8dd7x1"]
 
-[ext_resource type="Script" path="res://scripts/obsticals/spikes.gd" id="1_3hmh8"]
+[ext_resource type="Script" path="res://scripts/obsticals/damage_on_contact.gd" id="1_3hmh8"]
 [ext_resource type="Texture2D" uid="uid://d3m1003mjdc3f" path="res://images/sprites/obsticals/spikes.png" id="1_ovpgc"]
 [ext_resource type="Shader" path="res://shaders/shine.gdshader" id="2_ysul1"]
 

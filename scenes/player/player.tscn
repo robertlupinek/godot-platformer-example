@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://dd64m2gtmdvrw"]
 
-[ext_resource type="Script" path="res://scripts/player/player_movement.gd" id="1_bhge8"]
+[ext_resource type="Script" path="res://scenes/player/player_movement.gd" id="1_bhge8"]
 [ext_resource type="Shader" path="res://shaders/flash.gdshader" id="1_r4wub"]
 [ext_resource type="AudioStream" uid="uid://b8gshngw6me2m" path="res://sounds/soundfx/jump.wav" id="2_seprg"]
 [ext_resource type="AudioStream" uid="uid://dalseq7ik0b8g" path="res://sounds/soundfx/hurt.wav" id="3_ij0q0"]
@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://bjiaif337wyw2" path="res://sounds/soundfx/dash.wav" id="4_725wk"]
 [ext_resource type="SpriteFrames" uid="uid://8hyayw66bd0r" path="res://scenes/player/ani_player.tres" id="7_81ax6"]
 [ext_resource type="PackedScene" uid="uid://h5lvwtk1iolv" path="res://scenes/effects/light_test.tscn" id="8_4ym7f"]
-[ext_resource type="Script" path="res://scripts/player/player_animate.gd" id="8_d14ph"]
+[ext_resource type="Script" path="res://scenes/player/player_animate.gd" id="8_d14ph"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m6w3u"]
 size = Vector2(6, 16)
@@ -65,14 +65,15 @@ collision_layer = 2
 floor_stop_on_slope = false
 floor_snap_length = 4.6
 script = ExtResource("1_bhge8")
-jump_sound = ExtResource("2_seprg")
-hurt_sound = ExtResource("3_ij0q0")
-dash_sound = ExtResource("4_725wk")
 dash_time = 0.2
 dash_delay_time = 0.5
 dash_speed = 400.0
+jump_sound = ExtResource("2_seprg")
+hurt_sound = ExtResource("3_ij0q0")
+dash_sound = ExtResource("4_725wk")
 
 [node name="CameraIngame" parent="." instance=ExtResource("3_ps3tp")]
+process_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
@@ -80,6 +81,7 @@ shape = SubResource("RectangleShape2D_m6w3u")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("character")]
+process_mode = 1
 z_index = 1
 material = SubResource("ShaderMaterial_qbnsu")
 position = Vector2(0, -8)

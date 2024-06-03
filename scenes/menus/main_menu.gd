@@ -1,5 +1,6 @@
 extends Control
 
+@export var click_sound: AudioStream
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -10,14 +11,26 @@ func _ready():
 func _process(delta):
 	pass
 
-# Play
-func _on_button_pressed():
-	GameState._goto_scene("res://scenes/levels/1st_level.tscn")
+func _on_load_pressed():
+	AudioManager._play(click_sound)
+	GameState._load_game()
+	GameState._goto_scene(GameState.scene)
 
-# Quit
-func _on_button_3_pressed():
+func _on_new_game_pressed():
+	AudioManager._play(click_sound)
+	GameState.scene = "res://scenes/levels/1st_level.tscn"
+	GameState._save_game()
+	GameState._goto_scene(GameState.scene)
+
+
+func _on_settings_pressed():
+	AudioManager._play(click_sound)
+	GameState._goto_scene("res://scenes/menus/settings.tscn")
+
+
+func _on_quit_pressed():
+	AudioManager._play(click_sound)
 	get_tree().quit()
 
 
-func _on_button_2_pressed():
-	GameState._goto_scene("res://scenes/menus/settings.tscn")
+

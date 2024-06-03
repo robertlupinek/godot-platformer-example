@@ -14,6 +14,7 @@ func _play(stream: AudioStream):
 	audio_player.stream = stream
 	audio_player.bus = "SFX"
 	audio_player.finished.connect(_remove_audio_player.bind(audio_player))
+	audio_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(audio_player)
 	audio_player.play()
 

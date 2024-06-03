@@ -1,13 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dx683gjesmtug"]
+[gd_scene load_steps=6 format=3 uid="uid://dx683gjesmtug"]
 
+[ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1_mbhju"]
 [ext_resource type="FontFile" uid="uid://b5q43pbvnoom7" path="res://fonts/m5x7.ttf" id="1_yyfio"]
 [ext_resource type="Script" path="res://scripts/ui/hud_hp_text.gd" id="2_65kl8"]
 [ext_resource type="Script" path="res://scripts/ui/hud_score_text.gd" id="3_o4pkr"]
 [ext_resource type="Texture2D" uid="uid://dwp22fo7w5obu" path="res://images/sprites/collectables/heart.png" id="4_34cyj"]
 
-[node name="Hud" type="CanvasLayer"]
+[node name="Hud" type="CanvasLayer" groups=["hud"]]
+visible = false
 scale = Vector2(4, 4)
 transform = Transform2D(4, 0, 0, 4, 0, 0)
+script = ExtResource("1_mbhju")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 533.0

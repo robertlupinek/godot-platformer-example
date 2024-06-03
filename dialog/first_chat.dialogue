@@ -1,0 +1,19 @@
+~ first_chat
+Spirit: [[Hi|Hello|Howdy]], welcome to the spirit world!
+Spirit: Is there anything you would like to eat?
+- Can I have an apple?
+	Spirit: Yum, nature's candy.  Here is your apple!  Anything else?
+	- Nope
+	- Nahhhhhh
+- I love to eat rocks! => rocks
+- Say "Good bye" => END
+Spirit: Good luck, and [b]try[/b] to have fun out there!
+=> END
+
+~ rocks
+Spirit: Hmmmm, that sounds [shake rate=20 level=5]BAD[/shake].  Do you actually like those?
+- Yes
+- No
+Spirit: You [shake rate=10 level=10]ARE[/shake] an [bgcolor=DARK_GRAY][b][rainbow freq=0.2 sat=10 val=20]odd duck[/rainbow][/b][/bgcolor].
+Spirit: Be sure to take good care of yourself you little quackers.
+=> END

@@ -1,22 +1,17 @@
 extends Node2D
 
-const SAVE_PATH: String = "res://savegame.bin"
+const GAME_SAVE_PATH: String = "user://savegame.sav"
+const SETTINGS_SAVE_PATH: String = "user://settings.sav"
 const SAVE_PASS: String = "bloopyblooperton"
 
 var score: int = 0
-var hp: int = 3
-var max_hp: int = 3
 
-var player_state: Dictionary = {
-	"score" : score,
-	"hp" : hp,
-	"max_hp" : max_hp
-}
+var max_hp: float = 3
+var hp: float = max_hp
 
 # Signals
 signal score_changed
 signal player_hurt
-
 
 # Game Settings
 
@@ -30,22 +25,9 @@ var bus_volumes: Dictionary = {
 }
 var scene: String
 
-var settings: Dictionary = {
-	"bus_volumes" : bus_volumes,
-	"full_screen" : full_screen,
-}
-
-
-var save_game_data: Dictionary = {
-	"scene" : scene,
-	"settings" : settings,
-	"player_state" : player_state
-}
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	_set_volumes()
-	pass # Replace with function body.
+	_load_settings()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -76,21 +58,39 @@ func _set_full_screen(set_value: bool):
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)	
 	full_screen = set_value
 
+func _save_settings():
+	var file = FileAccess.open(SETTINGS_SAVE_PATH,FileAccess.WRITE)
+	file.store_var(bus_volumes)
+	file.store_var(full_screen)
+
+func _load_settings():
+	
+	if FileAccess.file_exists(SETTINGS_SAVE_PATH) == true:
+		var file = FileAccess.open(SETTINGS_SAVE_PATH,FileAccess.READ)
+		bus_volumes = file.get_var()
+		full_screen = file.get_var()
+	_set_full_screen(full_screen)
+	_set_volumes()
+
+
 func _save_game():
-	var file = FileAccess.open(SAVE_PATH,FileAccess.WRITE)
-	var json_string = JSON.stringify(save_game_data)
-	file.store_line(json_string)
-	print(json_string)
+	var file = FileAccess.open(GAME_SAVE_PATH,FileAccess.WRITE)
+	file.store_var(scene)
+	file.store_var(score)
+	file.store_var(hp)
+	file.store_var(max_hp)	
 
 func _load_game():
-	var file = FileAccess.open(SAVE_PATH,FileAccess.READ)
-	if not file:
-		return
-	if file == null:
-		return
-	if FileAccess.file_exists(SAVE_PATH) == true:
-		if not file.eof_reached():
-			var current_line = JSON.parse_string(file.get_line)
-			if current_line:
-				print(current_line)
 	
+	if FileAccess.file_exists(GAME_SAVE_PATH) == true:
+		var file = FileAccess.open(GAME_SAVE_PATH,FileAccess.READ)
+		scene = file.get_var()
+		score = file.get_var()
+		hp = file.get_var()
+		max_hp = file.get_var()
+		
+	_set_full_screen(full_screen)
+	_set_volumes()
+	
+func _retry():
+	hp = max_hp

@@ -1,13 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://buwe2l6riioss"]
+[gd_scene load_steps=5 format=3 uid="uid://buwe2l6riioss"]
 
 [ext_resource type="Script" path="res://scenes/menus/pause_menu.gd" id="1_v80x7"]
 [ext_resource type="Theme" uid="uid://cat2g16dps4au" path="res://themes/menu_theme.tres" id="2_0xxpc"]
+[ext_resource type="Script" path="res://scripts/buttons/button_effects.gd" id="3_2o7y3"]
 [ext_resource type="FontFile" uid="uid://b5q43pbvnoom7" path="res://fonts/m5x7.ttf" id="3_63rsy"]
 
 [node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 128
+visible = false
+script = ExtResource("1_v80x7")
 
 [node name="PauseMenu" type="Control" parent="."]
-process_mode = 3
 z_index = 1
 layout_mode = 3
 anchors_preset = 15
@@ -15,7 +19,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_v80x7")
 
 [node name="ColorRect4" type="ColorRect" parent="PauseMenu"]
 layout_mode = 1
@@ -42,12 +45,14 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme = ExtResource("2_0xxpc")
 text = "UNPAUSE"
+script = ExtResource("3_2o7y3")
 
 [node name="Quit" type="Button" parent="PauseMenu/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme = ExtResource("2_0xxpc")
 text = "QUIT"
+script = ExtResource("3_2o7y3")
 
 [node name="ColorRect" type="ColorRect" parent="PauseMenu"]
 z_index = -1
@@ -97,5 +102,5 @@ text = "[center][pulse freq=1 color=#ffffff40 ease=-1.0]PAUSED...[/pulse][/cente
 
 "
 
-[connection signal="pressed" from="PauseMenu/VBoxContainer/Unpause" to="PauseMenu" method="_on_unpause_pressed"]
-[connection signal="pressed" from="PauseMenu/VBoxContainer/Quit" to="PauseMenu" method="_on_quit_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Unpause" to="." method="_on_unpause_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

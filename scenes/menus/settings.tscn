@@ -4,8 +4,8 @@
 [ext_resource type="Theme" uid="uid://cat2g16dps4au" path="res://themes/menu_theme.tres" id="2_0g5vf"]
 [ext_resource type="Script" path="res://scenes/menus/SoundHSlider.gd" id="2_72gn8"]
 [ext_resource type="Script" path="res://scenes/menus/full_screen_button.gd" id="4_43nc3"]
+[ext_resource type="Script" path="res://scenes/menus/back_button.gd" id="5_uu5ce"]
 [ext_resource type="PackedScene" uid="uid://t02nqvqvswgd" path="res://scenes/music/song_main_menu.tscn" id="6_3bxid"]
-[ext_resource type="Script" path="res://scripts/buttons/button_goto_scene.gd" id="6_5n34a"]
 
 [node name="Node2D" type="Control"]
 layout_mode = 3
@@ -129,7 +129,7 @@ offset_right = 8.0
 offset_bottom = 8.0
 theme = ExtResource("2_0g5vf")
 text = "Back"
-script = ExtResource("6_5n34a")
+script = ExtResource("5_uu5ce")
 new_scene = "res://scenes/menus/main_menu.tscn"
 
 [node name="DarkSong" parent="." instance=ExtResource("6_3bxid")]

@@ -9,6 +9,7 @@ func _ready():
 	text = str(GameState.hp) + "/" + str(GameState.max_hp)
 	start_scale = scale
 	GameState.connect("player_hurt",_grow_text)
+
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

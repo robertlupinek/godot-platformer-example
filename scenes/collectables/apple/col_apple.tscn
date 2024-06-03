@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://chlxkbsjjasnt"]
 
 [ext_resource type="Texture2D" uid="uid://twuniaqqhdk8" path="res://images/sprites/collectables/apple.png" id="1_8lipp"]
-[ext_resource type="Script" path="res://scripts/collectables/col_apple.gd" id="1_oo7vs"]
+[ext_resource type="Script" path="res://scenes/collectables/apple/col_apple.gd" id="1_oo7vs"]
 [ext_resource type="AudioStream" uid="uid://b71eg3ag5vuvx" path="res://sounds/soundfx/power_up.wav" id="3_gr0ac"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0i0qr"]

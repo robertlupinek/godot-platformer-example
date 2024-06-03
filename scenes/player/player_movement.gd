@@ -13,11 +13,6 @@ signal hurt
 @export var air_friction : float = 7.0
 @export var wall_jump_velocity_x = 350
 
-# Sounds
-@export var jump_sound = AudioStream
-@export var hurt_sound = AudioStream
-@export var dash_sound = AudioStream
-
 # Current Speed
 var speed: float = ground_speed
 # Current horizontal friction.  Changes based on state of playing 
@@ -35,7 +30,9 @@ var landed : bool = false
 # Double jump and so on :)
 @export var extra_jumps : int = 1
 var current_extra_jumps = extra_jumps
-
+# Time that represents jump pressed
+var jump_pressed_timer: Timer = Timer.new()
+@export var jump_pressed_time: float = 0.1
 # Set max fall speed
 @export var max_velocity_y: float = 250
 
@@ -60,8 +57,27 @@ var dash_line_time: float = 0.1
 # Bullets
 var bullet_star_shot: PackedScene = preload("res://scenes/bullets/bullet_star_shot.tscn")
 
+# Sounds
+@export var jump_sound = AudioStream
+@export var hurt_sound = AudioStream
+@export var dash_sound = AudioStream
+
+# Death scene
+var death_scene: PackedScene = preload("res://scenes/player/player_dies.tscn")
+
+# Camera
+var camera: Camera2D
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Set the camera variable
+	camera = $CameraIngame
+	# Add all of the timers :)
+	## jump pressed time
+	add_child(jump_pressed_timer)
+	jump_pressed_timer.one_shot = true
+	jump_pressed_timer.start(coyote_time)		
+	## Coyote jump time
 	add_child(coyote_timer)
 	coyote_timer.one_shot = true
 	coyote_timer.start(coyote_time)	
@@ -106,8 +122,8 @@ func _physics_process(delta):
 		## Reset extra jumps count
 		current_extra_jumps = extra_jumps
 		## Do thing when you just landed for the first time.
-		if landed == false:
-			var asdf = 1
+		#if landed == false:
+		#	var asdf = 1
 		landed = true
 		## Start the coyote time to indicate you can now jump
 		coyote_timer.start(coyote_time)
@@ -145,7 +161,10 @@ func _physics_process(delta):
 	# Handle jumping.  
 	
 	## We use a "coyote" timer to determine when you can jump vs if on ground.
-	if Input.is_action_just_pressed("ui_accept") and ( not coyote_timer.is_stopped() or current_extra_jumps > 0 ):
+	if Input.is_action_just_pressed("ui_accept"):
+		jump_pressed_timer.start(jump_pressed_time)
+	
+	if not jump_pressed_timer.is_stopped() and ( not coyote_timer.is_stopped() or current_extra_jumps > 0 ):
 		## Only count the jump as a "double" or "tripple" or more jump IF the coyote timer has stopped indicating you are not on the ground.
 		if coyote_timer.is_stopped():
 			current_extra_jumps -= 1
@@ -153,6 +172,8 @@ func _physics_process(delta):
 		velocity.y = jump_velocity
 		# Play the jump sound
 		AudioManager._play(jump_sound)
+		# Stop the jump pressed timer
+		jump_pressed_timer.stop()
 
 		## Wall jump off the wall a bit.  Make sure we are also not on the floor.  This would be weird trying to jump over walls and just bouncing back.
 		if is_on_wall() and not is_on_floor():
@@ -277,7 +298,13 @@ func _flash_sprite():
 	$AnimatedSprite2D.material.set_shader_parameter("active",flash)
 
 func _the_ending():
-	GameState.hp = GameState.max_hp
-	GameState.score = 0
-	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
+	var death = death_scene.instantiate()
+	var world = get_tree().current_scene
+	world.add_child(death)
+	# Hide vs dequeueing - we need the camera :)
+	hide()
+	death.position = position
+	death.scale.x = facing
+	
+	
 

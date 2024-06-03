@@ -1,0 +1,210 @@
+[gd_scene load_steps=24 format=3 uid="uid://ba3sga5as5uhd"]
+
+[ext_resource type="Texture2D" uid="uid://dvhpmwj24m3v0" path="res://images/sprites/player/player_dies.png" id="1_k15oa"]
+[ext_resource type="Script" path="res://scenes/player/player_dies.gd" id="2_qvsan"]
+[ext_resource type="PackedScene" uid="uid://h5lvwtk1iolv" path="res://scenes/effects/light_test.tscn" id="3_ghh15"]
+[ext_resource type="Theme" uid="uid://cat2g16dps4au" path="res://themes/menu_theme.tres" id="4_j2ws1"]
+[ext_resource type="AudioStream" uid="uid://dgckhv8coxcdm" path="res://sounds/music/deathsong.mp3" id="5_5nu4j"]
+[ext_resource type="Script" path="res://scripts/buttons/button_effects.gd" id="5_uequd"]
+[ext_resource type="AudioStream" uid="uid://brn21xy78na4p" path="res://sounds/soundfx/death.wav" id="6_4tlxd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uoab6"]
+atlas = ExtResource("1_k15oa")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2gyvq"]
+atlas = ExtResource("1_k15oa")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ht2s"]
+atlas = ExtResource("1_k15oa")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1jwk"]
+atlas = ExtResource("1_k15oa")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpbcd"]
+atlas = ExtResource("1_k15oa")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50jth"]
+atlas = ExtResource("1_k15oa")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7gkm"]
+atlas = ExtResource("1_k15oa")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhhbp"]
+atlas = ExtResource("1_k15oa")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gkhf1"]
+atlas = ExtResource("1_k15oa")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktu7o"]
+atlas = ExtResource("1_k15oa")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phbej"]
+atlas = ExtResource("1_k15oa")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6qgo"]
+atlas = ExtResource("1_k15oa")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dp26b"]
+atlas = ExtResource("1_k15oa")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxdwe"]
+atlas = ExtResource("1_k15oa")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7hit"]
+atlas = ExtResource("1_k15oa")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xlwto"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_uoab6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2gyvq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ht2s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1jwk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpbcd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50jth")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7gkm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhhbp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gkhf1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktu7o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_phbej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6qgo")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dp26b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fxdwe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b7hit")
+}],
+"loop": true,
+"name": &"floats",
+"speed": 5.0
+}]
+
+[node name="PlayerDies" type="AnimatedSprite2D"]
+process_mode = 3
+z_index = 1000
+z_as_relative = false
+position = Vector2(0, -6)
+sprite_frames = SubResource("SpriteFrames_xlwto")
+animation = &"floats"
+offset = Vector2(0, -10)
+script = ExtResource("2_qvsan")
+
+[node name="LightTest" parent="." instance=ExtResource("3_ghh15")]
+color = Color(0.919556, 0.996287, 0.975446, 1)
+energy = 1.75
+texture_scale = 5.56
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+color = Color(0.280955, 0.212034, 0.141117, 1)
+energy = 6.0
+blend_mode = 1
+shadow_color = Color(0, 0, 0, 0.372549)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+offset_left = -522.0
+offset_top = -256.0
+offset_right = 680.0
+offset_bottom = 276.0
+color = Color(0.101961, 0.0509804, 0.141176, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.183
+anchor_right = 0.5
+anchor_bottom = 0.183
+offset_left = -152.0
+offset_right = 152.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_constants/separation = 50
+
+[node name="Retry" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme = ExtResource("4_j2ws1")
+text = "Retry"
+script = ExtResource("5_uequd")
+
+[node name="Quit" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme = ExtResource("4_j2ws1")
+text = "Quit
+"
+script = ExtResource("5_uequd")
+
+[node name="DeathSong" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_5nu4j")
+volume_db = 7.1
+autoplay = true
+bus = &"Music"
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_4tlxd")
+autoplay = true
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
+[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/Quit" to="." method="_on_quit_pressed"]

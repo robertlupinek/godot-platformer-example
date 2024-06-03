@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_12"
+type="Resource"
+uid="uid://c6e0hnjusljh4"
+path="res://.godot/imported/first_chat.dialogue-baaa90c80efddd67343c6c25c2ca3637.tres"
+
+[deps]
+
+source_file="res://dialog/first_chat.dialogue"
+dest_files=["res://.godot/imported/first_chat.dialogue-baaa90c80efddd67343c6c25c2ca3637.tres"]
+
+[params]
+
+defaults=true
