@@ -1,20 +1,45 @@
-[gd_scene load_steps=4 format=3 uid="uid://l7ym8wptylko"]
+[gd_scene load_steps=8 format=3 uid="uid://l7ym8wptylko"]
 
 [ext_resource type="Script" path="res://scenes/effects/water/water_body.gd" id="1_24loc"]
+[ext_resource type="Shader" path="res://scenes/effects/water/water_body.gdshader" id="2_4htuy"]
 [ext_resource type="Script" path="res://scripts/graphics/smooth_path_modified.gd" id="2_ko15x"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qo6ri"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_efkmw"]
+noise = SubResource("FastNoiseLite_qo6ri")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p06qy"]
+shader = ExtResource("2_4htuy")
+shader_parameter/refraction_stretch = Vector2(1, 1)
+shader_parameter/refraction_strength = 0.018
+shader_parameter/water_tint = Color(0.206795, 0.602353, 1, 0.1)
+shader_parameter/speed = 0.016
+shader_parameter/refraction_map = SubResource("NoiseTexture2D_efkmw")
 
 [sub_resource type="Curve2D" id="Curve2D_of1c8"]
 
-[node name="WaterBody" type="ColorRect"]
+[node name="WaterBody" type="Control" groups=["water"]]
+layout_mode = 3
+anchors_preset = 0
 offset_right = 50.0
 offset_bottom = 50.0
-color = Color(0.709804, 1, 1, 0.329412)
 script = ExtResource("1_24loc")
 water_color = Color(0.439216, 0.615686, 1, 0.447059)
 
 [node name="Polygon2DWater" type="Polygon2D" parent="."]
+material = SubResource("ShaderMaterial_p06qy")
 
 [node name="WaterBorder" type="Path2D" parent="."]
 curve = SubResource("Curve2D_of1c8")
 script = ExtResource("2_ko15x")
 color = Color(0.584314, 1, 1, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.937255, 0.941176, 0.227451)

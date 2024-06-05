@@ -1,4 +1,4 @@
-extends ColorRect
+extends Control
 
 @export var stiffness: float = 0.004
 @export var dampening: float = 0.03
@@ -14,12 +14,10 @@ var springs: Array = []
 # How many springs to add will be calculated based on distance between them and water size
 var spring_count: int
 
-var depth: float = size.y
-
 @export var water_color: Color
 
 var target_height: float = global_position.y
-var bottom: float = target_height + depth
+var bottom: float = target_height + size.y
 
 var water_polygon: Polygon2D
 
@@ -30,8 +28,14 @@ var water_border: SmoothPath
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Reset the bottom of the water.  Otherwise it would be set to size in the packed scene vs instantiated transform.
+	bottom = target_height + size.y
+	# Debug info
+	print_debug("bottom:")
+	print_debug(bottom)
+	
 	# Make the rect for drawing where to put water disappear
-	# modulate.a = 0
+	$ColorRect.hide()
 	# Reference the polygon for drawing water
 	water_polygon = $Polygon2DWater
 	water_polygon.color = water_color
@@ -45,7 +49,6 @@ func _ready():
 	# Create springs for the water
 
 	for i in range(spring_count):
-
 		var x_position = distance_between_springs * i
 		var new_spring = water_spring.instantiate()
 		add_child(new_spring)

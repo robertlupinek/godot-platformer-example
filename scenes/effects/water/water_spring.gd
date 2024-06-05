@@ -6,11 +6,12 @@ var height: float = 0
 var target_height: float = 0
 # Can another collision occur timer
 var can_collide_timer: Timer = Timer.new()
-var can_collide_time: float = 0.1
+@export var can_collide_time: float = 0.05
 # Multiplier * collider's  used to dampen impact on water
 var collide_dampen: float = 0.005
 
 func _ready():
+	add_child(can_collide_timer)
 	can_collide_timer.one_shot = true
 
 func _initialize(x_position):
