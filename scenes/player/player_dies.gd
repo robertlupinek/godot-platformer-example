@@ -45,4 +45,4 @@ func _on_quit_pressed():
 func _choice_made(scene: String):
 	get_tree().paused = false
 	GameState._retry()
-	get_tree().change_scene_to_file(scene)
+	GameState._goto_scene(scene)

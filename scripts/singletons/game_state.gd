@@ -36,9 +36,6 @@ func _process(delta):
 func _goto_scene(new_scene: String):
 	scene = new_scene
 	get_tree().change_scene_to_file(new_scene)
-	# Don't think we need to set volumes... 
-	# I thought we might when I was not setting the volumes right.  I think I was not changing the index I looked up and only setting index 0 = "Master".
-	# _set_volumes()
 
 func _score_update(points_gained: int):
 	score += points_gained

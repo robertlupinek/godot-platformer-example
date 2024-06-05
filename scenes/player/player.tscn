@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dd64m2gtmdvrw"]
+[gd_scene load_steps=17 format=3 uid="uid://dd64m2gtmdvrw"]
 
 [ext_resource type="Script" path="res://scenes/player/player_movement.gd" id="1_bhge8"]
 [ext_resource type="Shader" path="res://shaders/flash.gdshader" id="1_r4wub"]
@@ -9,6 +9,7 @@
 [ext_resource type="SpriteFrames" uid="uid://8hyayw66bd0r" path="res://scenes/player/ani_player.tres" id="7_81ax6"]
 [ext_resource type="PackedScene" uid="uid://h5lvwtk1iolv" path="res://scenes/effects/light_test.tscn" id="8_4ym7f"]
 [ext_resource type="Script" path="res://scenes/player/player_animate.gd" id="8_d14ph"]
+[ext_resource type="PackedScene" uid="uid://ccyfefsl6cpqe" path="res://scenes/transitions/scene_transition.tscn" id="10_opffu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m6w3u"]
 size = Vector2(6, 16)
@@ -113,5 +114,8 @@ round_precision = 2
 color = Color(0.919556, 0.996287, 0.975446, 1)
 energy = 0.5
 texture_scale = 5.56
+
+[node name="SceneTransition" parent="." instance=ExtResource("10_opffu")]
+transition_name = "fade_in"
 
 [connection signal="animation_looped" from="AnimatedSprite2D" to="AnimatedSprite2D" method="_on_animation_looped"]

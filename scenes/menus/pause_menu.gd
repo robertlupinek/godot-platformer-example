@@ -15,6 +15,8 @@ func _process(delta):
 			_on_unpause_pressed()
 		else:
 			get_tree().paused = true
+			# For pausing shaders
+			Engine.time_scale = 0
 			# Get the current button or object that has focus.  We need to give it focus
 			# back when we unpause else we break non-mouse driven input.
 			old_focus = get_viewport().gui_get_focus_owner()
@@ -29,8 +31,10 @@ func _on_unpause_pressed():
 	# Give focus back to the OG node that had focus if it exists
 	if old_focus:
 		old_focus.grab_focus()
-	# Pause everything in the tree according to it's process mode
+	# Unause everything in the tree according to it's process mode
 	get_tree().paused = false
+	# Unpause shaders
+	Engine.time_scale = 1
 
 
 func _on_quit_pressed():

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bc0e15ad0s4fi"]
 
 [ext_resource type="Texture2D" uid="uid://bw01to7iiqqnd" path="res://images/sprites/effects/smoke.png" id="1_6inaq"]
-[ext_resource type="Script" path="res://scenes/effects/particle_remove_on_finished.gd" id="2_uw4qd"]
+[ext_resource type="Script" path="res://scripts/effects/particle_remove_on_finished.gd" id="2_uw4qd"]
 
 [sub_resource type="Curve" id="Curve_0d8mv"]
 _data = [Vector2(0.0909091, 0.874275), 0.0, 0.0, 0, 0, Vector2(0.886364, 0.132495), 0.0, 0.0, 0, 0]

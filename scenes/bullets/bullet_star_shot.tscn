@@ -4,7 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://cgyok6af7w6oi" path="res://sounds/soundfx/shot_1.wav" id="2_2htlu"]
 [ext_resource type="AudioStream" uid="uid://cyfd2a4o3joce" path="res://sounds/soundfx/hit_1.wav" id="3_3mxfe"]
 [ext_resource type="Texture2D" uid="uid://boro0f65sln5u" path="res://images/sprites/projectiles/star_shot.png" id="3_gjeno"]
-[ext_resource type="PackedScene" uid="uid://dolf7pell5gbb" path="res://scenes/effects/wand_sparks.tscn" id="3_ncbc1"]
+[ext_resource type="PackedScene" uid="uid://dolf7pell5gbb" path="res://scenes/effects/particles/wand_sparks.tscn" id="4_2lsbr"]
 [ext_resource type="Texture2D" uid="uid://cm2p27x0lymh3" path="res://images/sprites/projectiles/kuni.png" id="4_h2u3h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2exps"]
@@ -94,11 +94,12 @@ animations = [{
 size = Vector2(9, 4)
 
 [node name="BulletStarShot" type="Area2D"]
+collision_layer = 8
 collision_mask = 5
 script = ExtResource("1_vcimj")
 shot_sound = ExtResource("2_2htlu")
 hit_sound = ExtResource("3_3mxfe")
-particle = ExtResource("3_ncbc1")
+particle = ExtResource("4_2lsbr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_oa4cj")

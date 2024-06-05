@@ -76,7 +76,6 @@ func _ready():
 	## jump pressed time
 	add_child(jump_pressed_timer)
 	jump_pressed_timer.one_shot = true
-	jump_pressed_timer.start(coyote_time)		
 	## Coyote jump time
 	add_child(coyote_timer)
 	coyote_timer.one_shot = true
@@ -228,8 +227,9 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_attack_1"):
 		_shoot(bullet_star_shot)
 		
-
-		# 
+	# Test stuff
+	if Input.is_action_just_pressed("ui_test"):
+		GameFx._transition_scene("fade_out","res://scenes/menus/main_menu.tscn")
 		
 	# Set animation and scaling and any animation related fun stuff
 	_set_animation()

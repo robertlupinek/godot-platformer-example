@@ -14,7 +14,6 @@ func _ready():
 	GameFx.connect("screen_flash",_flash)
 	GameFx.connect("screen_shake",_shake)
 	GameFx.connect("is_snowing",_snow)
-	GameFx.is_snowing.emit(true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -34,14 +33,6 @@ func _process(delta):
 		offset = Vector2(0,0)
 		rotation = 0
 
-	if Input.is_action_just_pressed("test_1"):
-		GameFx.screen_shake.emit(0.5)
-		GameFx.screen_flash.emit(1,Color(206, 242, 0,1))
-		if snowing:
-			snowing = false
-		else:
-			snowing = true
-		GameFx.is_snowing.emit(snowing)
 		
 func _shake(time: float = 0.5):
 	shake_timer.start(time)

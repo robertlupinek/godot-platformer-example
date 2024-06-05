@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://l7ym8wptylko"]
+
+[ext_resource type="Script" path="res://scenes/effects/water/water_body.gd" id="1_24loc"]
+[ext_resource type="Script" path="res://scripts/graphics/smooth_path_modified.gd" id="2_ko15x"]
+
+[sub_resource type="Curve2D" id="Curve2D_of1c8"]
+
+[node name="WaterBody" type="Node2D"]
+script = ExtResource("1_24loc")
+water_color = Color(0.439216, 0.615686, 1, 0.447059)
+
+[node name="Polygon2DWater" type="Polygon2D" parent="."]
+
+[node name="WaterBorder" type="Path2D" parent="."]
+curve = SubResource("Curve2D_of1c8")
+script = ExtResource("2_ko15x")
+color = Color(0.584314, 1, 1, 1)

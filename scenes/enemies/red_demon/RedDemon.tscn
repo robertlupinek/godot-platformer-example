@@ -3,7 +3,7 @@
 [ext_resource type="Shader" path="res://shaders/flash.gdshader" id="1_2kxe0"]
 [ext_resource type="Script" path="res://Images/Sprites/enemies/movement/enemy_patroller.gd" id="1_2moaw"]
 [ext_resource type="Texture2D" uid="uid://cods1w1y0e1qm" path="res://images/sprites/enemies/BadRedDemon.png" id="1_3s7d8"]
-[ext_resource type="PackedScene" uid="uid://bc0e15ad0s4fi" path="res://scenes/effects/smoke_poof.tscn" id="2_npa68"]
+[ext_resource type="PackedScene" uid="uid://bc0e15ad0s4fi" path="res://scenes/effects/particles/smoke_poof.tscn" id="2_npa68"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vie4v"]
 size = Vector2(13, 26)
@@ -111,7 +111,7 @@ target_position = Vector2(23, -7)
 
 [node name="FloorRayCast2D" type="RayCast2D" parent="."]
 position = Vector2(0, 6)
-target_position = Vector2(4, 21)
+target_position = Vector2(3, 21)
 
 [node name="FlashAnimation" type="AnimationPlayer" parent="."]
 libraries = {
