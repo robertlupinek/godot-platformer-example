@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ej3p052tb5gh"]
+[gd_scene load_steps=20 format=3 uid="uid://ej3p052tb5gh"]
 
 [ext_resource type="Script" path="res://scenes/bullets/bullet_star_shot.gd" id="1_vcimj"]
 [ext_resource type="AudioStream" uid="uid://cgyok6af7w6oi" path="res://sounds/soundfx/shot_1.wav" id="2_2htlu"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://boro0f65sln5u" path="res://images/sprites/projectiles/star_shot.png" id="3_gjeno"]
 [ext_resource type="PackedScene" uid="uid://dolf7pell5gbb" path="res://scenes/effects/particles/wand_sparks.tscn" id="4_2lsbr"]
 [ext_resource type="Texture2D" uid="uid://cm2p27x0lymh3" path="res://images/sprites/projectiles/kuni.png" id="4_h2u3h"]
+[ext_resource type="PackedScene" uid="uid://h5lvwtk1iolv" path="res://scenes/effects/light_test.tscn" id="7_t4buh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2exps"]
 atlas = ExtResource("4_h2u3h")
@@ -108,6 +109,11 @@ frame_progress = 0.141903
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.5, 0)
 shape = SubResource("RectangleShape2D_7uxxu")
+
+[node name="LightTest" parent="." instance=ExtResource("7_t4buh")]
+color = Color(0.919556, 0.996287, 0.975446, 1)
+energy = 1.41
+texture_scale = 5.56
 
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

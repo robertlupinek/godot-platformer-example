@@ -1,39 +1,48 @@
-[gd_scene load_steps=8 format=3 uid="uid://l7ym8wptylko"]
+[gd_scene load_steps=11 format=3 uid="uid://l7ym8wptylko"]
 
 [ext_resource type="Script" path="res://scenes/effects/water/water_body.gd" id="1_24loc"]
 [ext_resource type="Shader" path="res://scenes/effects/water/water_body.gdshader" id="2_4htuy"]
 [ext_resource type="Script" path="res://scripts/graphics/smooth_path_modified.gd" id="2_ko15x"]
+[ext_resource type="PackedScene" uid="uid://dfojht38edj3w" path="res://scenes/effects/water/water_splasher.tscn" id="2_v2esk"]
+[ext_resource type="AudioStream" uid="uid://ch26mnewn7lj6" path="res://sounds/soundfx/water_splash_1.mp3" id="4_ts6n5"]
+[ext_resource type="AudioStream" uid="uid://ckq7cef8vmtty" path="res://sounds/soundfx/water_splash_2.mp3" id="5_mlrtg"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_qo6ri"]
+seed = 11
+frequency = 0.004
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_efkmw"]
+seamless = true
 noise = SubResource("FastNoiseLite_qo6ri")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p06qy"]
 shader = ExtResource("2_4htuy")
 shader_parameter/refraction_stretch = Vector2(1, 1)
-shader_parameter/refraction_strength = 0.018
-shader_parameter/water_tint = Color(0.206795, 0.602353, 1, 0.1)
-shader_parameter/speed = 0.016
+shader_parameter/refraction_strength = 0.012
+shader_parameter/water_tint = Color(0.278431, 0.647059, 0.764706, 0.513726)
+shader_parameter/speed = 0.162
 shader_parameter/refraction_map = SubResource("NoiseTexture2D_efkmw")
 
 [sub_resource type="Curve2D" id="Curve2D_of1c8"]
 
 [node name="WaterBody" type="Control" groups=["water"]]
+z_index = 10
 layout_mode = 3
 anchors_preset = 0
 offset_right = 50.0
 offset_bottom = 50.0
 script = ExtResource("1_24loc")
-water_color = Color(0.439216, 0.615686, 1, 0.447059)
+splash_particle = ExtResource("2_v2esk")
+water_color = Color(0.0861225, 0.210541, 0.27225, 0.372549)
+water_outline_color = Color(0.585497, 0.932737, 0.968356, 0.176471)
 
 [node name="Polygon2DWater" type="Polygon2D" parent="."]
+z_index = 100
 material = SubResource("ShaderMaterial_p06qy")
 
 [node name="WaterBorder" type="Path2D" parent="."]
 curve = SubResource("Curve2D_of1c8")
 script = ExtResource("2_ko15x")
-color = Color(0.584314, 1, 1, 1)
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -43,3 +52,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0.937255, 0.941176, 0.227451)
+
+[node name="AudioStreamPlayerSplash1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ts6n5")
+volume_db = 0.6
+pitch_scale = 2.19
+bus = &"SFX"
+
+[node name="AudioStreamPlayerSplash2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_mlrtg")
+bus = &"SFX"

@@ -132,7 +132,6 @@ z_index = 1000
 z_as_relative = false
 position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_xlwto")
-animation = &"floats"
 offset = Vector2(0, -10)
 script = ExtResource("2_qvsan")
 
@@ -205,6 +204,7 @@ bus = &"Music"
 stream = ExtResource("6_4tlxd")
 autoplay = true
 
+[connection signal="animation_changed" from="." to="." method="_on_animation_changed"]
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
 [connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/Retry" to="." method="_on_retry_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/Quit" to="." method="_on_quit_pressed"]

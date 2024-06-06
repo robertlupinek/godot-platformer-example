@@ -17,6 +17,7 @@ func _play(stream: AudioStream):
 	audio_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(audio_player)
 	audio_player.play()
+	return audio_player.get_instance_id()
 
 func _remove_audio_player(audio_player: AudioStreamPlayer):
 	audio_player.queue_free()

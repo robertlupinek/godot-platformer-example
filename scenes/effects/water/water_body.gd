@@ -1,5 +1,5 @@
 extends Control
-
+@export var splash_particle: PackedScene
 @export var stiffness: float = 0.004
 @export var dampening: float = 0.03
 # How much waves spread force to neighborsd
@@ -15,6 +15,7 @@ var springs: Array = []
 var spring_count: int
 
 @export var water_color: Color
+@export var water_outline_color: Color
 
 var target_height: float = global_position.y
 var bottom: float = target_height + size.y
@@ -25,6 +26,10 @@ var water_spring: PackedScene = preload("res://scenes/effects/water/water_spring
 
 var water_border: SmoothPath
 @export var border_size: float = 0.2
+
+# Can another collision occur timer
+var can_collide_timer: Timer = Timer.new()
+@export var can_collide_time: float = 0.05
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -42,16 +47,19 @@ func _ready():
 	water_border = $WaterBorder
 	water_border.width = border_size
 	
-	# Get spring count based on size.x
+	# Get spring count based on size.x and distance between springs
 	spring_count = round(size.x / distance_between_springs) + 1
-	
 	
 	# Create springs for the water
 
 	for i in range(spring_count):
+		# Get x position on top of water surface where to put the springs base on distance between
 		var x_position = distance_between_springs * i
+		# Create new spring
 		var new_spring = water_spring.instantiate()
 		add_child(new_spring)
+		# Connect new spring collisions with local function for effects
+		new_spring.spring_collision.connect(_spring_collision)
 		springs.append(new_spring)
 		if i < spring_count -1:
 			new_spring._initialize(distance_between_springs * i)
@@ -59,8 +67,13 @@ func _ready():
 			new_spring._initialize(size.x)
 
 func _physics_process(delta):
+	
+	# Update all of the springs position based on
+	#  dampening, stiffness, force applied, and finally postion based on velocity.
 	for spring in springs:
 		spring._water_update(stiffness,dampening)
+	# Setup the arrays for checking neighboring springs height difference 
+	# Used to calculate affect of bounce onn neighbor.
 	var left_deltas: Array = []
 	var right_deltas: Array = []
 	# Set the values of left and right deltas to 0
@@ -68,6 +81,7 @@ func _physics_process(delta):
 		left_deltas.append(0)
 		right_deltas.append(0)
 	
+	# Process neighboring springs affects on each other based on height in bounce difference
 	for j in range(passes):	
 		for i in range (springs.size()):
 			# If the spring is not the furthest "left" in the array then add the velocity of the left neighbor
@@ -87,7 +101,7 @@ func _splash(index,speed):
 		springs[index].velocity += speed
 		
 func _draw_water_body():
-	# Get teh curve of the border
+	# Get the curve of the border
 	var curve = water_border.curve
 	# Make an array of points from the curve
 	var points = Array(curve.get_baked_points())
@@ -100,6 +114,10 @@ func _draw_water_body():
 	water_polygon_points.append(Vector2(water_polygon_points[last_index].x,bottom))
 	water_polygon_points.append(Vector2(water_polygon_points[first_index].x,bottom))
 	water_polygon.set_polygon(PackedVector2Array(water_polygon_points))
+	
+	# Set the color of the water body
+	water_polygon.material.set_shader_parameter("water_tint",water_color)
+	water_border.color = water_outline_color
 	
 func _new_border():
 	# Draw a new border for the surface of the water.
@@ -119,4 +137,27 @@ func _new_border():
 	water_border.smooth(true)
 	water_border.queue_redraw()
 	
-	
+func _spring_collision(spring,body,velocity):
+	# emit_signal("spring_collision",self,body,velocity)
+	for i in range(4):
+		var splash = splash_particle.instantiate()
+		var world = get_tree().current_scene  
+		world.add_child(splash)	
+		splash.position = Vector2(body.position.x,spring.global_position.y-1)
+		splash.color = water_color
+		splash.outline_color = water_outline_color
+		splash.velocity.y -= velocity
+	var volume: float = -30 + abs(velocity) * 20
+	var pitch: float = 1 + randf_range(0,2)
+	if randi_range(-10, 10) > 0:
+		# Uncomment if you don't want the splash sound to start until the last is finished
+		#if !$AudioStreamPlayerSplash1.playing:
+			$AudioStreamPlayerSplash1.volume_db = volume
+			$AudioStreamPlayerSplash1.pitch_scale = pitch
+			$AudioStreamPlayerSplash1.play()
+	else:
+		# Uncomment if you don't want the splash sound to start until the last is finished
+		#if !$AudioStreamPlayerSplash2.playing:
+			$AudioStreamPlayerSplash2.volume_db = volume
+			$AudioStreamPlayerSplash2.pitch_scale = pitch
+			$AudioStreamPlayerSplash2.play()

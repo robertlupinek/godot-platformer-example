@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bgiiyhjyex1sf"]
+[gd_scene load_steps=8 format=3 uid="uid://bgiiyhjyex1sf"]
 
 [ext_resource type="PackedScene" uid="uid://b3w3xeiym1hbi" path="res://scenes/tilesets/tilemap_1.tscn" id="1_8pqp4"]
 [ext_resource type="PackedScene" uid="uid://dd64m2gtmdvrw" path="res://scenes/player/player.tscn" id="2_g515y"]
 [ext_resource type="Shader" path="res://shaders/flash.gdshader" id="3_62mph"]
 [ext_resource type="PackedScene" uid="uid://dtayfa2h71u78" path="res://scenes/enemies/red_demon/RedDemon.tscn" id="3_k0a6j"]
 [ext_resource type="PackedScene" uid="uid://l7ym8wptylko" path="res://scenes/effects/water/water_body.tscn" id="5_ohgws"]
+[ext_resource type="PackedScene" uid="uid://dx683gjesmtug" path="res://scenes/ui/hud.tscn" id="6_duuk7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r2evw"]
 resource_local_to_scene = true
@@ -24,7 +25,7 @@ position = Vector2(495, 130)
 material = SubResource("ShaderMaterial_r2evw")
 
 [node name="LightTest" parent="Player" index="5"]
-energy = 3.35
+energy = 2.62
 
 [node name="RedDemon" parent="." instance=ExtResource("3_k0a6j")]
 position = Vector2(813, 220)
@@ -50,9 +51,11 @@ border_size = 0.3
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 color = Color(0.574972, 0.827687, 0.224973, 1)
-energy = 3.34
+energy = 2.8
 blend_mode = 1
 shadow_enabled = true
 shadow_color = Color(0.101961, 0.101961, 0.101961, 0.498039)
+
+[node name="Hud" parent="." instance=ExtResource("6_duuk7")]
 
 [editable path="Player"]

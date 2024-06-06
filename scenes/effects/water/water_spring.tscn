@@ -1,27 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbv6xv255hrrd"]
+[gd_scene load_steps=3 format=3 uid="uid://bbv6xv255hrrd"]
 
 [ext_resource type="Script" path="res://scenes/effects/water/water_spring.gd" id="1_nj8tn"]
-[ext_resource type="Texture2D" uid="uid://cif7qn5vqugcj" path="res://images/icons/small_pip.png" id="2_t33sm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c6j18"]
-size = Vector2(12, 3)
+size = Vector2(16, 3)
 
-[node name="WaterSpring" type="Node2D"]
+[node name="WaterSpring" type="Area2D" groups=["water"]]
 z_index = 100
+collision_mask = 30
 script = ExtResource("1_nj8tn")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-scale = Vector2(4, 4)
-texture = ExtResource("2_t33sm")
-
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 14
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_c6j18")
 
-[connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]
-[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

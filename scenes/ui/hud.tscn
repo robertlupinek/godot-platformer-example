@@ -48,3 +48,11 @@ script = ExtResource("3_o4pkr")
 [node name="Heart" type="Sprite2D" parent="."]
 position = Vector2(8.5, 7)
 texture = ExtResource("4_34cyj")
+
+[node name="FPS" type="RichTextLabel" parent="."]
+offset_left = 237.5
+offset_top = 142.0
+offset_right = 255.5
+offset_bottom = 159.0
+theme_override_fonts/normal_font = ExtResource("1_yyfio")
+text = "60"
