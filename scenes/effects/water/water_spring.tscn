@@ -3,15 +3,18 @@
 [ext_resource type="Script" path="res://scenes/effects/water/water_spring.gd" id="1_nj8tn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c6j18"]
-size = Vector2(16, 3)
+size = Vector2(4, 2)
 
-[node name="WaterSpring" type="Area2D" groups=["water"]]
+[node name="WaterSpring" type="Area2D" groups=["water_spring"]]
 z_index = 100
+collision_layer = 32
 collision_mask = 30
 script = ExtResource("1_nj8tn")
+collide_dampen = 0.003
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1.5)
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_c6j18")
 
+[connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

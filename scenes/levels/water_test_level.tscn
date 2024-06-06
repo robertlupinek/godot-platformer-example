@@ -25,31 +25,19 @@ position = Vector2(495, 130)
 material = SubResource("ShaderMaterial_r2evw")
 
 [node name="LightTest" parent="Player" index="5"]
+visible = false
 energy = 2.62
 
 [node name="RedDemon" parent="." instance=ExtResource("3_k0a6j")]
 position = Vector2(813, 220)
+hp = 2.0
 
 [node name="RedDemon2" parent="." instance=ExtResource("3_k0a6j")]
 position = Vector2(249, 219)
-
-[node name="WaterBody" parent="." instance=ExtResource("5_ohgws")]
-z_index = 100
-offset_left = 558.0
-offset_top = 290.0
-offset_right = 946.0
-offset_bottom = 529.0
-border_size = 0.3
-
-[node name="WaterBody2" parent="." instance=ExtResource("5_ohgws")]
-z_index = 100
-offset_left = 46.0
-offset_top = 326.0
-offset_right = 434.0
-offset_bottom = 529.0
-border_size = 0.3
+hp = 2.0
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+visible = false
 color = Color(0.574972, 0.827687, 0.224973, 1)
 energy = 2.8
 blend_mode = 1
@@ -57,5 +45,43 @@ shadow_enabled = true
 shadow_color = Color(0.101961, 0.101961, 0.101961, 0.498039)
 
 [node name="Hud" parent="." instance=ExtResource("6_duuk7")]
+visible = true
+
+[node name="WaterBody2" parent="." instance=ExtResource("5_ohgws")]
+z_index = 100
+anchors_preset = 0
+offset_left = 46.0
+offset_top = 326.0
+offset_right = 434.0
+offset_bottom = 529.0
+border_size = 0.3
+
+[node name="WaterBody3" parent="." instance=ExtResource("5_ohgws")]
+anchors_preset = 0
+offset_left = 676.0
+offset_top = 226.0
+offset_right = 743.0
+offset_bottom = 240.0
+
+[node name="WaterBody4" parent="." instance=ExtResource("5_ohgws")]
+anchors_preset = 0
+offset_left = 754.0
+offset_top = 124.0
+offset_right = 832.0
+offset_bottom = 183.0
+
+[node name="WaterBody5" parent="." instance=ExtResource("5_ohgws")]
+anchors_preset = 0
+offset_left = 863.0
+offset_top = 98.0
+offset_right = 942.0
+offset_bottom = 158.0
+
+[node name="WaterBody" parent="." instance=ExtResource("5_ohgws")]
+anchors_preset = 0
+offset_left = 560.0
+offset_top = 273.0
+offset_right = 946.0
+offset_bottom = 529.0
 
 [editable path="Player"]

@@ -112,8 +112,8 @@ shape = SubResource("RectangleShape2D_7uxxu")
 
 [node name="LightTest" parent="." instance=ExtResource("7_t4buh")]
 color = Color(0.919556, 0.996287, 0.975446, 1)
-energy = 1.41
-texture_scale = 5.56
+energy = 0.96
+texture_scale = 1.26
 
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

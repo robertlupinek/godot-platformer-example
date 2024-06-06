@@ -12,6 +12,11 @@ signal hurt
 @export var ground_friction : float = 24.0
 @export var air_friction : float = 7.0
 @export var wall_jump_velocity_x = 350
+@export var swim_friction: float = 7.0
+@export var swim_gravity: float = 300 
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+@export var gravity : float = 600 # ProjectSettings.get_setting("physics/2d/default_gravity")
+
 
 # Current Speed
 var speed: float = ground_speed
@@ -21,8 +26,9 @@ var direction_x : float
 var facing : float = 1
 var is_player : bool = false
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-@export var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
+# Configure swimming
+var swimming: bool = false
+
 # Configure jumping
 var coyote_timer: Timer = Timer.new()
 @export var coyote_time : float = 0.1
@@ -42,16 +48,15 @@ var hurt_time: float = 1
 var flash: bool = false
 
 # Dashing
-# How long to dash
+## How long to dash
 var dash_timer: Timer  = Timer.new()
 @export var dash_time: float = 1 
-# How long before you can dash again
+## How long before you can dash again
 var dash_delay_timer: Timer  = Timer.new()
 @export var dash_delay_time: float = 1.5
-# Velocity to dash during dash_time
+## Velocity to dash during dash_time
 @export var dash_speed: float = 200
 var dash_line_timer: Timer  = Timer.new()
-
 var dash_line_time: float = 0.1
 
 # Bullets
@@ -104,8 +109,14 @@ func _process(delta):
 		$FlashAnimation.stop()
 
 func _physics_process(delta):
-	
+	swimming = false
 	# Player State
+	## Check if you are in a liquid / water
+	for area in $Area2D.get_overlapping_areas():
+		if area.is_in_group("water"):
+			print("swimming")
+			swimming = true
+	
 	## Handle all changes required for when landing on the floor or being midair.
 	if not is_on_floor():
 		## Midair

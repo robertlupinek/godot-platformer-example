@@ -1,8 +1,13 @@
 extends Control
+# Scene used for splash particles
 @export var splash_particle: PackedScene
+# Velocity required to spawn splash particles
+@export var splash_velocity: float = 0.05
+# How stiff the springs are when collided with.  Affects how much velocity impacts movement of water
 @export var stiffness: float = 0.004
+# How quickly to reduce the springs "wave"
 @export var dampening: float = 0.03
-# How much waves spread force to neighborsd
+# How much springs spread force to neighbors
 var spread: float = 0.0003
 
 # The spring array
@@ -14,33 +19,34 @@ var springs: Array = []
 # How many springs to add will be calculated based on distance between them and water size
 var spring_count: int
 
+# Color for the water
 @export var water_color: Color
 @export var water_outline_color: Color
 
+# Top of the water
 var target_height: float = global_position.y
+# Bottom of the water
 var bottom: float = target_height + size.y
-
+# Polygon used to draw the water
 var water_polygon: Polygon2D
-
-var water_spring: PackedScene = preload("res://scenes/effects/water/water_spring.tscn")
-
 var water_border: SmoothPath
 @export var border_size: float = 0.2
-
-# Can another collision occur timer
-var can_collide_timer: Timer = Timer.new()
-@export var can_collide_time: float = 0.05
+# The springs used to make the waves
+var water_spring: PackedScene = preload("res://scenes/effects/water/water_spring.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Reset the bottom of the water.  Otherwise it would be set to size in the packed scene vs instantiated transform.
 	bottom = target_height + size.y
-	# Debug info
-	print_debug("bottom:")
-	print_debug(bottom)
+	
+	# Resize and move collision shape to proper place based on size and position of this node
+	$Area2D/CollisionShape2D.shape.size = size
+	$Area2D.position += size / 2	
 	
 	# Make the rect for drawing where to put water disappear
 	$ColorRect.hide()
+
+	
 	# Reference the polygon for drawing water
 	water_polygon = $Polygon2DWater
 	water_polygon.color = water_color
@@ -65,9 +71,15 @@ func _ready():
 			new_spring._initialize(distance_between_springs * i)
 		else:
 			new_spring._initialize(size.x)
+		new_spring.collision_shape.shape.extents.x = distance_between_springs  / 2
+
 
 func _physics_process(delta):
-	
+	_process_springs()
+	_new_border()				
+	_draw_water_body()
+
+func _process_springs():
 	# Update all of the springs position based on
 	#  dampening, stiffness, force applied, and finally postion based on velocity.
 	for spring in springs:
@@ -91,34 +103,8 @@ func _physics_process(delta):
 			# If the spring is not the furthest "right" in the array then add the velocity of the right neighbor
 			if i < springs.size() -1:
 				right_deltas[i] = spread * (springs[i].height - springs[i+1].height)
-				springs[i+1].velocity += right_deltas[i]
-	_new_border()				
-	_draw_water_body()
+				springs[i+1].velocity += right_deltas[i]	
 
-			
-func _splash(index,speed):
-	if index >= 0 and index <= springs.size():
-		springs[index].velocity += speed
-		
-func _draw_water_body():
-	# Get the curve of the border
-	var curve = water_border.curve
-	# Make an array of points from the curve
-	var points = Array(curve.get_baked_points())
-	
-	var water_polygon_points = points
-		
-	var first_index: int = 0
-	var last_index:int = water_polygon_points.size()-1
-
-	water_polygon_points.append(Vector2(water_polygon_points[last_index].x,bottom))
-	water_polygon_points.append(Vector2(water_polygon_points[first_index].x,bottom))
-	water_polygon.set_polygon(PackedVector2Array(water_polygon_points))
-	
-	# Set the color of the water body
-	water_polygon.material.set_shader_parameter("water_tint",water_color)
-	water_border.color = water_outline_color
-	
 func _new_border():
 	# Draw a new border for the surface of the water.
 	
@@ -136,18 +122,38 @@ func _new_border():
 	water_border.curve = curve
 	water_border.smooth(true)
 	water_border.queue_redraw()
+
+func _draw_water_body():
+	# Get the curve of the border
+	var curve = water_border.curve
+	# Make an array of points from the curve
+	var water_polygon_points = Array(curve.get_baked_points())
+		
+	var first_index: int = 0
+	var last_index:int = water_polygon_points.size()-1
+
+	# Append the bottom right and left points to the polygon array
+	water_polygon_points.append(Vector2(water_polygon_points[last_index].x,bottom))
+	water_polygon_points.append(Vector2(water_polygon_points[first_index].x,bottom))
+	water_polygon.set_polygon(PackedVector2Array(water_polygon_points))
+
+	# Set the color of the water body
+	water_polygon.material.set_shader_parameter("water_tint",water_color)
+	water_border.color = water_outline_color
+	
+
 	
 func _spring_collision(spring,body,velocity):
-	# emit_signal("spring_collision",self,body,velocity)
-	for i in range(4):
-		var splash = splash_particle.instantiate()
-		var world = get_tree().current_scene  
-		world.add_child(splash)	
-		splash.position = Vector2(body.position.x,spring.global_position.y-1)
-		splash.color = water_color
-		splash.outline_color = water_outline_color
-		splash.velocity.y -= velocity
-	var volume: float = -30 + abs(velocity) * 20
+	# An object collided with a spring.
+	# Add any special effects you want here.
+	# Velocity is the velocity of the SPRING NOT the BODY !!!!
+	# Spring's velocity and can collide timer are all set in the WaterSpring's _on_body_shape_entered method
+	var abs_velocity = abs(velocity)
+	if abs_velocity > splash_velocity:
+		_add_splashes(4,body.position.x,spring.global_position.y-1,abs_velocity)
+	# Set volume based on the velocity of object impacting
+	var volume: float = -30 + abs_velocity * 20
+	# Set a random pitch to make the splashes seem less same same
 	var pitch: float = 1 + randf_range(0,2)
 	if randi_range(-10, 10) > 0:
 		# Uncomment if you don't want the splash sound to start until the last is finished
@@ -161,3 +167,15 @@ func _spring_collision(spring,body,velocity):
 			$AudioStreamPlayerSplash2.volume_db = volume
 			$AudioStreamPlayerSplash2.pitch_scale = pitch
 			$AudioStreamPlayerSplash2.play()
+			
+func _add_splashes(count,x,y,velocity):
+	var world = get_tree().current_scene 
+	var splash: Area2D 
+	for i in range(count):
+		splash = splash_particle.instantiate()
+		world.call_deferred("add_child",splash)
+		splash.position = Vector2(x,y)
+		splash.color = water_color
+		splash.outline_color = water_outline_color
+		splash.velocity.y -= velocity	
+		

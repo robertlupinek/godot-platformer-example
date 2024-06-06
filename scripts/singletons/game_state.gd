@@ -91,3 +91,4 @@ func _load_game():
 	
 func _retry():
 	hp = max_hp
+

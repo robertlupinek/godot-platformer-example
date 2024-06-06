@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dd64m2gtmdvrw"]
+[gd_scene load_steps=18 format=3 uid="uid://dd64m2gtmdvrw"]
 
 [ext_resource type="Script" path="res://scenes/player/player_movement.gd" id="1_bhge8"]
 [ext_resource type="Shader" path="res://shaders/flash.gdshader" id="1_r4wub"]
@@ -60,9 +60,13 @@ point_count = 2
 offsets = PackedFloat32Array(0.100543, 0.127717, 0.904891, 0.92663)
 colors = PackedColorArray(0.294118, 0.188235, 0.588235, 0.454902, 0.296066, 0.188477, 0.586577, 1, 0.299422, 0.252785, 0.389959, 1, 0.243525, 0.122589, 0.395879, 0)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_delou"]
+size = Vector2(6, 16)
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 1
 collision_layer = 2
+collision_mask = 33
 floor_stop_on_slope = false
 floor_snap_length = 4.6
 script = ExtResource("1_bhge8")
@@ -117,5 +121,12 @@ texture_scale = 5.56
 
 [node name="SceneTransition" parent="." instance=ExtResource("10_opffu")]
 transition_name = "fade_in"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_delou")
 
 [connection signal="animation_looped" from="AnimatedSprite2D" to="AnimatedSprite2D" method="_on_animation_looped"]
