@@ -8,7 +8,7 @@ var target_height: float = 0
 var can_collide_timer: Timer = Timer.new()
 @export var can_collide_time: float = 0.1
 # Multiplier * collider's  used to dampen impact on water
-@export var collide_dampen: float = 0.01
+@export var collide_dampen: float = 0.05
 
 var collision_shape: CollisionShape2D
 

@@ -12,8 +12,11 @@ signal hurt
 @export var ground_friction : float = 24.0
 @export var air_friction : float = 7.0
 @export var wall_jump_velocity_x = 350
-@export var swim_friction: float = 7.0
-@export var swim_gravity: float = 300 
+@export var swim_friction: float = 2.0
+@export var swim_gravity: float = 100 
+@export var swim_speed: float = 100 
+@export var swim_jump_velocity: float = -100
+@export var max_swim_velocity_y: float = 80
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 @export var gravity : float = 600 # ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -109,44 +112,56 @@ func _process(delta):
 		$FlashAnimation.stop()
 
 func _physics_process(delta):
-	swimming = false
+	
 	# Player State
+	## Preset swimming to false
+	var old_swimming = swimming
+	swimming = false
 	## Check if you are in a liquid / water
 	for area in $Area2D.get_overlapping_areas():
 		if area.is_in_group("water"):
-			print("swimming")
 			swimming = true
+	if old_swimming and !swimming:
+		if Input.is_action_pressed("ui_accept"):
+			velocity.y = jump_velocity
+		coyote_timer.stop()
 	
-	## Handle all changes required for when landing on the floor or being midair.
-	if not is_on_floor():
-		## Midair
-		## Add the gravity.
-		velocity.y += gravity * delta
-		speed = air_speed
-		friction = air_friction
-		landed = false
+	if swimming:
+		friction = swim_friction
+		velocity.y += swim_gravity * delta
+		coyote_timer.start(10)
+		speed = swim_speed
 	else:
-		## On floor
-		speed = ground_speed
-		friction = ground_friction
-		## Reset extra jumps count
-		current_extra_jumps = extra_jumps
-		## Do thing when you just landed for the first time.
-		#if landed == false:
-		#	var asdf = 1
-		landed = true
-		## Start the coyote time to indicate you can now jump
-		coyote_timer.start(coyote_time)
-		
-	## On wall
-	if is_on_wall():
-		## Allow wall jump
-		coyote_timer.start(coyote_time)
-		## Reset extra jumps count
-		current_extra_jumps = extra_jumps
-		if direction_x != 0:
-			if velocity.y > 30:
-				velocity.y = 30
+		## Handle all changes required for when landing on the floor or being midair.
+		if not is_on_floor():
+			## Midair
+			## Add the gravity.
+			velocity.y += gravity * delta
+			speed = air_speed
+			friction = air_friction
+			landed = false
+		else:
+			## On floor
+			speed = ground_speed
+			friction = ground_friction
+			## Reset extra jumps count
+			current_extra_jumps = extra_jumps
+			## Do thing when you just landed for the first time.
+			#if landed == false:
+			#	var asdf = 1
+			landed = true
+			## Start the coyote time to indicate you can now jump
+			coyote_timer.start(coyote_time)
+			
+		## On wall
+		if is_on_wall():
+			## Allow wall jump
+			coyote_timer.start(coyote_time)
+			## Reset extra jumps count
+			current_extra_jumps = extra_jumps
+			if direction_x != 0:
+				if velocity.y > 30:
+					velocity.y = 30
 		
 	# Horizontal movement
 	## Get the input direction_x and handle the movement/deceleration.
@@ -179,14 +194,19 @@ func _physics_process(delta):
 		if coyote_timer.is_stopped():
 			current_extra_jumps -= 1
 			$AnimatedSprite2D.play("flip")
-		velocity.y = jump_velocity
-		# Play the jump sound
-		AudioManager._play(jump_sound)
+		if not swimming:
+			velocity.y = jump_velocity
+			# Play the jump sound
+			AudioManager._play(jump_sound)			
+		else:
+			velocity.y += swim_jump_velocity
+
+
 		# Stop the jump pressed timer
 		jump_pressed_timer.stop()
 
 		## Wall jump off the wall a bit.  Make sure we are also not on the floor.  This would be weird trying to jump over walls and just bouncing back.
-		if is_on_wall() and not is_on_floor():
+		if is_on_wall() and not is_on_floor() and not swimming:
 			velocity.x = wall_jump_velocity_x * -direction_x  
 		## Stop the coyote timer
 		coyote_timer.stop()
@@ -248,8 +268,13 @@ func _physics_process(delta):
 	# Handle physics
 	
 	### Enforce a max velocity.y
-	if velocity.y > max_velocity_y:
-		velocity.y	= max_velocity_y	
+	if not swimming:
+		if velocity.y > max_velocity_y:
+			velocity.y	= max_velocity_y
+	else:
+		if velocity.y > max_swim_velocity_y:
+				velocity.y	-= 600 * delta
+
 	
 	### Keep x velocity from going over max velocity if not dashing
 	if dash_timer.is_stopped():

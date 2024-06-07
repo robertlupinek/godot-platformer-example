@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bgiiyhjyex1sf"]
+[gd_scene load_steps=9 format=3 uid="uid://bgiiyhjyex1sf"]
 
 [ext_resource type="PackedScene" uid="uid://b3w3xeiym1hbi" path="res://scenes/tilesets/tilemap_1.tscn" id="1_8pqp4"]
 [ext_resource type="PackedScene" uid="uid://dd64m2gtmdvrw" path="res://scenes/player/player.tscn" id="2_g515y"]
@@ -13,6 +13,12 @@ shader = ExtResource("3_62mph")
 shader_parameter/active = null
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fk2wh"]
+resource_local_to_scene = true
+shader = ExtResource("3_62mph")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
 [node name="WaterTestLevel" type="Node2D"]
 
 [node name="Tilemap1" parent="." instance=ExtResource("1_8pqp4")]
@@ -24,8 +30,10 @@ position = Vector2(495, 130)
 [node name="AnimatedSprite2D" parent="Player" index="2"]
 material = SubResource("ShaderMaterial_r2evw")
 
-[node name="LightTest" parent="Player" index="5"]
-visible = false
+[node name="AnimatedSprite2D2" parent="Player" index="3"]
+material = SubResource("ShaderMaterial_fk2wh")
+
+[node name="LightTest" parent="Player" index="6"]
 energy = 2.62
 
 [node name="RedDemon" parent="." instance=ExtResource("3_k0a6j")]
@@ -37,7 +45,6 @@ position = Vector2(249, 219)
 hp = 2.0
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-visible = false
 color = Color(0.574972, 0.827687, 0.224973, 1)
 energy = 2.8
 blend_mode = 1
