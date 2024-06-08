@@ -40,10 +40,6 @@ func _process(delta):
 			if not animation == "flip":
 				play("jump_down")
 			
-	## If moving and midair - midair sprite selection doesn't rely on character horizontal movement.
-	if !character.is_on_floor() and character.is_on_wall() and not character.swimming:
-		play("wall")	
-		
 	## Swimming
 	if character.swimming:
 		if character.direction_x:

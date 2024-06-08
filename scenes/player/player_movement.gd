@@ -75,11 +75,13 @@ var death_scene: PackedScene = preload("res://scenes/player/player_dies.tscn")
 
 # Camera
 var camera: Camera2D
+# World boundary.  We don't slide on these guys, and we need to be aware of it for other collisions.
+@export var world_boundary_layer: int = 8
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Set the camera variable
-	camera = $CameraIngame
+	camera = $CameraInGame
 	# Add all of the timers :)
 	## jump pressed time
 	add_child(jump_pressed_timer)
@@ -120,7 +122,13 @@ func _physics_process(delta):
 	## Check if you are in a liquid / water
 	for area in $Area2D.get_overlapping_areas():
 		if area.is_in_group("water"):
-			swimming = true
+			var area_top = area.collision_shape.global_position.y - area.collision_shape.shape.size.y / 2
+			var player_top = $Area2D/CollisionShape2D.global_position.y - $Area2D/CollisionShape2D.shape.size.y / 2
+			if area_top < player_top:
+				swimming = true
+				## Reset extra jumps count
+				current_extra_jumps = extra_jumps
+
 	if old_swimming and !swimming:
 		if Input.is_action_pressed("ui_accept"):
 			velocity.y = jump_velocity
@@ -155,13 +163,25 @@ func _physics_process(delta):
 			
 		## On wall
 		if is_on_wall():
-			## Allow wall jump
-			coyote_timer.start(coyote_time)
-			## Reset extra jumps count
-			current_extra_jumps = extra_jumps
-			if direction_x != 0:
-				if velocity.y > 30:
-					velocity.y = 30
+			### Super complicated way to check if you are colliding with a world boundary
+			### or a "normal" wall based on the collision layer of the last collision from slide and collide.
+			var can_wall_slide: bool = true
+			var collider = get_last_slide_collision().get_collider()
+			### Tiles don't have a way to check if they have a collision layer :(
+			### Good news is tiles aren't world collision boundaries, so they can be excluded from the check.
+			if collider.get_class() == "StaticBody2D":
+				### get_collision_layer_values returns true, so we just set the inverse ( true = false etc ) result to can_wall_slide using the !
+				can_wall_slide = !collider.get_collision_layer_value(world_boundary_layer)
+			### So you are sliding on a normal no world boundary wall.  Why must we check so many things :)
+			if can_wall_slide:
+				$AnimatedSprite2D.play("wall")
+				#### Allow wall jump
+				coyote_timer.start(coyote_time)
+				#### Reset extra jumps count
+				current_extra_jumps = extra_jumps
+				if direction_x != 0:
+					if velocity.y > 30:
+						velocity.y = 30
 		
 	# Horizontal movement
 	## Get the input direction_x and handle the movement/deceleration.
@@ -284,7 +304,7 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	# Set a fall max - can be removed maybe?
-	if position.y >= 1524:
+	if position.y >= $CameraInGame.limit_bottom:
 		_the_ending()
 		
 	# Debug info
@@ -342,5 +362,9 @@ func _the_ending():
 	death.position = position
 	death.scale.x = facing
 	
-	
+func _get_collision_shape(area: Area2D) -> CollisionShape2D:
+	for child in area.get_children():
+		if child is CollisionShape2D:
+			return child
+	return null
 

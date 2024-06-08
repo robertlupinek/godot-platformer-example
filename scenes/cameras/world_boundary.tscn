@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://bh0yyjt6naxkq"]
+
+[ext_resource type="Script" path="res://scenes/cameras/world_boundary.gd" id="1_ivamv"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_aexii"]
+resource_local_to_scene = true
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_13yij"]
+resource_local_to_scene = true
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0i8oi"]
+resource_local_to_scene = true
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_wbx5p"]
+resource_local_to_scene = true
+
+[node name="WorldBoundary" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 100.0
+offset_bottom = 100.0
+script = ExtResource("1_ivamv")
+has_floor = false
+
+[node name="LeftCollider" type="StaticBody2D" parent="."]
+collision_layer = 128
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftCollider"]
+shape = SubResource("WorldBoundaryShape2D_aexii")
+
+[node name="RightCollider" type="StaticBody2D" parent="."]
+collision_layer = 128
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightCollider"]
+shape = SubResource("WorldBoundaryShape2D_13yij")
+
+[node name="TopCollider" type="StaticBody2D" parent="."]
+collision_layer = 128
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopCollider"]
+shape = SubResource("WorldBoundaryShape2D_0i8oi")
+
+[node name="BottomCollider" type="StaticBody2D" parent="."]
+collision_layer = 128
+collision_mask = 0
+
+[node name="ColorRect" type="ColorRect" parent="BottomCollider"]
+custom_minimum_size = Vector2(100, 100)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.856363, 0.000665359, 0.871346, 0.321569)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomCollider"]
+shape = SubResource("WorldBoundaryShape2D_wbx5p")

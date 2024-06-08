@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bh0yyjt6naxkq"]
+
+[ext_resource type="Script" path="res://scenes/cameras/world_boundry.gd" id="1_biytb"]
+
+[node name="WorldBoundry" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 100.0
+offset_bottom = 100.0
+script = ExtResource("1_biytb")

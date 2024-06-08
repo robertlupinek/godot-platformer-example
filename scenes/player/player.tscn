@@ -66,7 +66,7 @@ size = Vector2(6, 16)
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 1
 collision_layer = 2
-collision_mask = 33
+collision_mask = 161
 floor_stop_on_slope = false
 floor_snap_length = 4.6
 script = ExtResource("1_bhge8")
@@ -76,9 +76,6 @@ dash_speed = 400.0
 jump_sound = ExtResource("2_seprg")
 hurt_sound = ExtResource("3_ij0q0")
 dash_sound = ExtResource("4_725wk")
-
-[node name="CameraIngame" parent="." instance=ExtResource("3_ps3tp")]
-process_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
@@ -129,5 +126,7 @@ collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_delou")
+
+[node name="CameraInGame" parent="." instance=ExtResource("3_ps3tp")]
 
 [connection signal="animation_looped" from="AnimatedSprite2D" to="AnimatedSprite2D" method="_on_animation_looped"]

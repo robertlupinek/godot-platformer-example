@@ -46,7 +46,6 @@ func _ready():
 	# Make the rect for drawing where to put water disappear
 	$ColorRect.hide()
 
-	
 	# Reference the polygon for drawing water
 	water_polygon = $Polygon2DWater
 	water_polygon.color = water_color
@@ -59,8 +58,6 @@ func _ready():
 	# Create springs for the water
 
 	for i in range(spring_count):
-		# Get x position on top of water surface where to put the springs base on distance between
-		var x_position = distance_between_springs * i
 		# Create new spring
 		var new_spring = water_spring.instantiate()
 		add_child(new_spring)
@@ -71,7 +68,7 @@ func _ready():
 			new_spring._initialize(distance_between_springs * i)
 		else:
 			new_spring._initialize(size.x)
-		new_spring.collision_shape.shape.extents.x = distance_between_springs  / 2
+		new_spring.collision_shape.shape.size.x = distance_between_springs
 
 
 func _physics_process(delta):
@@ -149,10 +146,23 @@ func _spring_collision(spring,body,velocity):
 	# Velocity is the velocity of the SPRING NOT the BODY !!!!
 	# Spring's velocity and can collide timer are all set in the WaterSpring's _on_body_shape_entered method
 	var abs_velocity = abs(velocity)
-	if abs_velocity > splash_velocity:
-		_add_splashes(4,body.position.x,spring.global_position.y-1,abs_velocity)
+	if abs_velocity > splash_velocity and spring.on_screen:
+		_splashes(4,body.position.x,spring.global_position.y-1,abs_velocity)
+		# _splashes(4,body.position.x,body.global_position.y-1,abs_velocity)
+
+			
+func _splashes(count,x,y,velocity):
+	var world = get_tree().current_scene 
+	var splash: Area2D 
+	for i in range(count):
+		splash = splash_particle.instantiate()
+		world.call_deferred("add_child",splash)
+		splash.position = Vector2(x,y)
+		splash.color = water_color
+		splash.outline_color = water_outline_color
+		splash.velocity.y -= velocity	
 	# Set volume based on the velocity of object impacting
-	var volume: float = -30 + abs_velocity * 20
+	var volume: float = -30 + velocity * 20
 	# Set a random pitch to make the splashes seem less same same
 	var pitch: float = 1 + randf_range(0,2)
 	if randi_range(-10, 10) > 0:
@@ -166,16 +176,5 @@ func _spring_collision(spring,body,velocity):
 		#if !$AudioStreamPlayerSplash2.playing:
 			$AudioStreamPlayerSplash2.volume_db = volume
 			$AudioStreamPlayerSplash2.pitch_scale = pitch
-			$AudioStreamPlayerSplash2.play()
-			
-func _add_splashes(count,x,y,velocity):
-	var world = get_tree().current_scene 
-	var splash: Area2D 
-	for i in range(count):
-		splash = splash_particle.instantiate()
-		world.call_deferred("add_child",splash)
-		splash.position = Vector2(x,y)
-		splash.color = water_color
-		splash.outline_color = water_outline_color
-		splash.velocity.y -= velocity	
+			$AudioStreamPlayerSplash2.play()	
 		

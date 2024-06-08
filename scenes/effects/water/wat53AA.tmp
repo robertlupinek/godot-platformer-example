@@ -1,16 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://l7ym8wptylko"]
+[gd_scene load_steps=11 format=3 uid="uid://l7ym8wptylko"]
 
 [ext_resource type="Script" path="res://scenes/effects/water/water_body.gd" id="1_24loc"]
 [ext_resource type="Shader" path="res://scenes/effects/water/water_body.gdshader" id="2_4htuy"]
 [ext_resource type="Script" path="res://scripts/graphics/smooth_path_modified.gd" id="2_ko15x"]
-[ext_resource type="PackedScene" uid="uid://dfojht38edj3w" path="res://scenes/effects/water/water_splash.tscn" id="2_v2esk"]
-[ext_resource type="Script" path="res://scripts/colliders/area_2d_basics.gd" id="3_28apr"]
 [ext_resource type="AudioStream" uid="uid://ch26mnewn7lj6" path="res://sounds/soundfx/water_splash_1.mp3" id="4_ts6n5"]
 [ext_resource type="AudioStream" uid="uid://ckq7cef8vmtty" path="res://sounds/soundfx/water_splash_2.mp3" id="5_mlrtg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6h6cr"]
 resource_local_to_scene = true
-size = Vector2(0, 0)
+size = Vector2(192, 64)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_qo6ri"]
 seed = 11
@@ -21,7 +19,6 @@ seamless = true
 noise = SubResource("FastNoiseLite_qo6ri")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p06qy"]
-resource_local_to_scene = true
 shader = ExtResource("2_4htuy")
 shader_parameter/refraction_stretch = Vector2(1, 1)
 shader_parameter/refraction_strength = 0.012
@@ -31,23 +28,13 @@ shader_parameter/refraction_map = SubResource("NoiseTexture2D_efkmw")
 
 [sub_resource type="Curve2D" id="Curve2D_of1c8"]
 
-[node name="WaterBody" type="Control" groups=["water"]]
-z_index = 10
-layout_mode = 3
-anchors_preset = 0
-offset_right = 24.0
-offset_bottom = 24.0
-script = ExtResource("1_24loc")
-splash_particle = ExtResource("2_v2esk")
-water_color = Color(0.0861225, 0.210541, 0.27225, 0.372549)
-water_outline_color = Color(0.585497, 0.932737, 0.968356, 0.176471)
-
-[node name="Area2D" type="Area2D" parent="." groups=["water"]]
+[node name="Area2D" type="Area2D" groups=["water"]]
 collision_layer = 32
 collision_mask = 0
-script = ExtResource("3_28apr")
+script = ExtResource("1_24loc")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(96, 32)
 shape = SubResource("RectangleShape2D_6h6cr")
 debug_color = Color(0.863678, 0.364436, 0.73295, 0.164706)
 
@@ -58,15 +45,6 @@ material = SubResource("ShaderMaterial_p06qy")
 [node name="WaterBorder" type="Path2D" parent="."]
 curve = SubResource("Curve2D_of1c8")
 script = ExtResource("2_ko15x")
-
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0.937255, 0.941176, 0.227451)
 
 [node name="AudioStreamPlayerSplash1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_ts6n5")

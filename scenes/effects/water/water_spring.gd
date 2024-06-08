@@ -11,6 +11,7 @@ var can_collide_timer: Timer = Timer.new()
 @export var collide_dampen: float = 0.05
 
 var collision_shape: CollisionShape2D
+var on_screen: bool = false
 
 signal spring_collision
 
@@ -18,6 +19,7 @@ func _ready():
 	add_child(can_collide_timer)
 	can_collide_timer.one_shot = true
 	collision_shape = $CollisionShape2D
+	$VisibleOnScreenNotifier2D.rect.size = collision_shape.shape.size
 
 func _initialize(x_position):
 	# Reset height and target height to current position
@@ -52,3 +54,10 @@ func _on_area_shape_entered(area_rid, area, area_shape_index, local_shape_index)
 		velocity += ( area.velocity.y + area.velocity.x ) * collide_dampen
 		can_collide_timer.start(can_collide_time)
 		emit_signal("spring_collision",self,area,velocity)
+
+
+func _on_visible_on_screen_notifier_2d_screen_entered():
+	on_screen = true
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	on_screen = false

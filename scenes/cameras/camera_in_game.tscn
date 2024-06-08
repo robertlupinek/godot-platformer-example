@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/cameras/camera.gd" id="1_v8qho"]
 
-[node name="CameraIngame" type="Camera2D"]
+[node name="CameraInGame" type="Camera2D"]
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 position_smoothing_speed = 30.0

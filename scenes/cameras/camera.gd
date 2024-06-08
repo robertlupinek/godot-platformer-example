@@ -13,7 +13,7 @@ func _ready():
 	# Connect signals from GameFx 
 	GameFx.connect("screen_flash",_flash)
 	GameFx.connect("screen_shake",_shake)
-	GameFx.connect("is_snowing",_snow)
+	GameFx.connect("is_snowing",_snow)	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -35,6 +35,7 @@ func _process(delta):
 
 		
 func _shake(time: float = 0.5):
+	# Triggered via the GameFX scree_shake emitter.
 	shake_timer.start(time)
 			
 func _snow(on: bool = true):
