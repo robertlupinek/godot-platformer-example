@@ -4,6 +4,7 @@
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [node name="SpriteExplode" type="CPUParticles2D"]
+z_index = 10
 amount = 640
 lifetime = 0.5
 explosiveness = 0.88

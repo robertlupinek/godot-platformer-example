@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://h0jvcuvtvb2j"]
+
+[ext_resource type="Script" path="res://scenes/enemies/behaviors/follow_path/follow_path.gd" id="1_rcbet"]
+
+[sub_resource type="Curve2D" id="Curve2D_j1cfh"]
+resource_local_to_scene = true
+
+[node name="FollowPath" type="Path2D"]
+curve = SubResource("Curve2D_j1cfh")
+script = ExtResource("1_rcbet")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(0, -1)
+rotates = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D"]

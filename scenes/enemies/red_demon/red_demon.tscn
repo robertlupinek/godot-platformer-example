@@ -1,0 +1,84 @@
+[gd_scene load_steps=14 format=3 uid="uid://dtayfa2h71u78"]
+
+[ext_resource type="Texture2D" uid="uid://5hrwvjcmqhyf" path="res://images/sprites/enemies/BadRedDemon.png" id="1_3s7d8"]
+[ext_resource type="PackedScene" uid="uid://1e2xj2gm6yb8" path="res://scenes/enemies/behaviors/enemy_base/enemy_base.tscn" id="1_jrqrd"]
+[ext_resource type="Shader" path="res://shaders/flash.gdshader" id="2_i6e37"]
+[ext_resource type="PackedScene" uid="uid://bqt50xkq6qypy" path="res://scenes/enemies/behaviors/patroller/patroller.tscn" id="4_b3bkf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_27mcf"]
+resource_local_to_scene = true
+size = Vector2(14, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lctsr"]
+resource_local_to_scene = true
+size = Vector2(14, 26)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qemgs"]
+resource_local_to_scene = true
+shader = ExtResource("2_i6e37")
+shader_parameter/active = null
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8djr"]
+atlas = ExtResource("1_3s7d8")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4756"]
+atlas = ExtResource("1_3s7d8")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdf65"]
+atlas = ExtResource("1_3s7d8")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bxbbr"]
+atlas = ExtResource("1_3s7d8")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pppnq"]
+atlas = ExtResource("1_3s7d8")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5emav"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b8djr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x4756")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdf65")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bxbbr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pppnq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="RedDemon" type="Node2D"]
+
+[node name="EnemyBase" parent="." instance=ExtResource("1_jrqrd")]
+speed = 30.0
+
+[node name="CollisionShape2D" parent="EnemyBase" index="0"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_27mcf")
+
+[node name="CollisionShape2D" parent="EnemyBase/Area2DDamage" index="0"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_lctsr")
+
+[node name="AnimatedSprite2D" parent="EnemyBase" index="4"]
+material = SubResource("ShaderMaterial_qemgs")
+sprite_frames = SubResource("SpriteFrames_5emav")
+
+[node name="Patroller" parent="." instance=ExtResource("4_b3bkf")]
+
+[editable path="EnemyBase"]

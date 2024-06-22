@@ -18,8 +18,8 @@ func _process(delta):
 #####
 # Signal functions
 ####
-func _screen_shake(timer: float ):
-	emit_signal("screen_shake")
+func _screen_shake(time: float,force: float ):
+	emit_signal("screen_shake",time,force)
 	
 func _screen_flash(color: Color = Color(255,255,255,1) ):
 	emit_signal("screen_flash")	

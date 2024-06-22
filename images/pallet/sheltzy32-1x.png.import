@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0kpd0hw080v3"
-path="res://.godot/imported/apple.png-90638a2a4a45bf9490a3e4793d704f1e.ctex"
+uid="uid://bctym0mkd1v37"
+path="res://.godot/imported/sheltzy32-1x.png-444c524891718d3072c9a23ea2d51762.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/sprites/collectables/apple.png"
-dest_files=["res://.godot/imported/apple.png-90638a2a4a45bf9490a3e4793d704f1e.ctex"]
+source_file="res://images/pallet/sheltzy32-1x.png"
+dest_files=["res://.godot/imported/sheltzy32-1x.png-444c524891718d3072c9a23ea2d51762.ctex"]
 
 [params]
 

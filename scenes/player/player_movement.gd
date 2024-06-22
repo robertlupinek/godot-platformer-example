@@ -332,7 +332,7 @@ func _hurt(dmg_received: float):
 		# Emit the signal in game state for injured player
 		GameState.emit_signal("player_hurt")
 		# Screen shake!
-		GameFx._screen_shake(0.02)
+		GameFx._screen_shake(0.02,0.2)
 		# Play sound effects and do special effects
 		AudioManager._play(hurt_sound)
 		velocity.y -= 50

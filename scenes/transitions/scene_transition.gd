@@ -28,7 +28,7 @@ func _ready():
 	elif transition_name == "fade_in":
 		get_tree().paused = false		
 		$CanvasLayer/ColorRectFade.modulate.a = 1
-		tween.tween_property($CanvasLayer/ColorRectFade,"modulate:a",0,0.5)
+		tween.tween_property($CanvasLayer/ColorRectFade,"modulate:a",0,1)
 		tween.tween_callback(_transition_finished)	
 	else:
 		print_debug("No transistion_name set...")

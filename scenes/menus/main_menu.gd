@@ -1,6 +1,7 @@
 extends Control
 
 @export var click_sound: AudioStream
+@export var first_scene: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,7 +19,7 @@ func _on_load_pressed():
 
 func _on_new_game_pressed():
 	AudioManager._play(click_sound)
-	GameState.scene = "res://scenes/levels/1st_level.tscn"
+	GameState.scene = first_scene
 	GameState._save_game()
 	GameState._goto_scene(GameState.scene)
 

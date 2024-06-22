@@ -1,0 +1,133 @@
+[gd_scene load_steps=16 format=3 uid="uid://1e2xj2gm6yb8"]
+
+[ext_resource type="Script" path="res://scenes/enemies/behaviors/enemy_base/enemy_base.gd" id="1_n8qvs"]
+[ext_resource type="PackedScene" uid="uid://bc0e15ad0s4fi" path="res://scenes/effects/particles/smoke_poof.tscn" id="2_5nddr"]
+[ext_resource type="Shader" path="res://shaders/flash.gdshader" id="3_0ef1d"]
+[ext_resource type="Texture2D" uid="uid://5hrwvjcmqhyf" path="res://images/sprites/enemies/BadRedDemon.png" id="4_yef6b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kvf4q"]
+resource_local_to_scene = true
+size = Vector2(14, 27)
+
+[sub_resource type="Animation" id="Animation_gvh8b"]
+resource_name = "flash"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"_flash_sprite"
+}, {
+"args": [],
+"method": &"_flash_sprite"
+}, {
+"args": [],
+"method": &"_flash_sprite"
+}, {
+"args": [],
+"method": &"_flash_sprite"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k8i3t"]
+_data = {
+"flash": SubResource("Animation_gvh8b")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rw8xb"]
+resource_local_to_scene = true
+size = Vector2(14, 26)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ajekt"]
+resource_local_to_scene = true
+shader = ExtResource("3_0ef1d")
+shader_parameter/active = null
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8xgh"]
+atlas = ExtResource("4_yef6b")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w84so"]
+atlas = ExtResource("4_yef6b")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6msty"]
+atlas = ExtResource("4_yef6b")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4nvq"]
+atlas = ExtResource("4_yef6b")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2thc6"]
+atlas = ExtResource("4_yef6b")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4rd2u"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8xgh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w84so")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6msty")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4nvq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2thc6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="EnemyBase" type="CharacterBody2D" groups=["enemies"]]
+light_mask = 0
+z_index = -20
+collision_layer = 4
+collision_mask = 33
+script = ExtResource("1_n8qvs")
+death_particle = ExtResource("2_5nddr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_kvf4q")
+
+[node name="FlashAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_k8i3t")
+}
+
+[node name="Area2DDamage" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+collision_priority = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DDamage"]
+position = Vector2(0.5, 2.5)
+shape = SubResource("RectangleShape2D_rw8xb")
+debug_color = Color(0.833851, 0.348161, 0.46535, 0.42)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1.43051e-06, 9.53674e-07)
+scale = Vector2(1.6, 1.6)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 0
+material = SubResource("ShaderMaterial_ajekt")
+sprite_frames = SubResource("SpriteFrames_4rd2u")
+
+[connection signal="body_entered" from="Area2DDamage" to="." method="_on_area_2d_damage_body_entered"]

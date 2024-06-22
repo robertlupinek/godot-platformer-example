@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0kpd0hw080v3"
-path="res://.godot/imported/apple.png-90638a2a4a45bf9490a3e4793d704f1e.ctex"
+uid="uid://dffnwj2vk6t6r"
+path="res://.godot/imported/flappa.png-5824ceec0cb8d5eff12e280e03cc2291.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/sprites/collectables/apple.png"
-dest_files=["res://.godot/imported/apple.png-90638a2a4a45bf9490a3e4793d704f1e.ctex"]
+source_file="res://images/sprites/enemies/flappa.png"
+dest_files=["res://.godot/imported/flappa.png-5824ceec0cb8d5eff12e280e03cc2291.ctex"]
 
 [params]
 

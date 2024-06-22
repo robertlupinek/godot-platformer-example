@@ -12,6 +12,7 @@ _data = [Vector2(0.00386847, 0.750523), 0.0, 0.0, 0, 0, Vector2(0.990329, 0.0275
 point_count = 2
 
 [node name="WaterSplash" type="CPUParticles2D"]
+z_index = 100
 emitting = false
 lifetime = 0.5
 one_shot = true

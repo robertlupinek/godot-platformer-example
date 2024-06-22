@@ -11,6 +11,7 @@ offsets = PackedFloat32Array(0.255435, 0.730978, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0.192157, 0.313726, 1, 0.964706, 0.131371, 0.000229391, 0.692317, 0.839216)
 
 [node name="WandSparks" type="CPUParticles2D"]
+z_index = 10
 emitting = false
 amount = 20
 one_shot = true

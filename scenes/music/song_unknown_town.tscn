@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnva8r0wc8m54"]
+
+[ext_resource type="AudioStream" uid="uid://bukwb2uura0sk" path="res://sounds/music/unknown_town.mp3" id="1_qesw6"]
+[ext_resource type="Texture2D" uid="uid://bx1p11j5ebl0e" path="res://images/icons/song.png" id="2_o86xe"]
+[ext_resource type="Script" path="res://scripts/icons/icon_ide_only.gd" id="3_fw16s"]
+
+[node name="DarkSong" type="Node2D"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_qesw6")
+autoplay = true
+bus = &"Music"
+
+[node name="SongIcon" type="Sprite2D" parent="."]
+texture = ExtResource("2_o86xe")
+script = ExtResource("3_fw16s")

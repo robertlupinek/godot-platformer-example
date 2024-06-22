@@ -64,12 +64,14 @@ colors = PackedColorArray(0.294118, 0.188235, 0.588235, 0.454902, 0.296066, 0.18
 size = Vector2(6, 16)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
-z_index = 1
+light_mask = 0
 collision_layer = 2
 collision_mask = 161
 floor_stop_on_slope = false
 floor_snap_length = 4.6
 script = ExtResource("1_bhge8")
+ground_speed = 700.0
+air_speed = 400.0
 dash_time = 0.2
 dash_delay_time = 0.5
 dash_speed = 400.0
@@ -84,12 +86,13 @@ metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("character")]
 process_mode = 1
+light_mask = 4
 z_index = 1
 material = SubResource("ShaderMaterial_qbnsu")
 position = Vector2(0, -8)
 sprite_frames = ExtResource("7_81ax6")
-animation = &"swim"
-frame_progress = 0.891199
+animation = &"wall"
+frame_progress = 0.270182
 script = ExtResource("8_d14ph")
 character = NodePath("..")
 metadata/_edit_group_ = true
@@ -113,9 +116,13 @@ sharp_limit = 5.0
 round_precision = 2
 
 [node name="LightTest" parent="." instance=ExtResource("8_4ym7f")]
-color = Color(0.919556, 0.996287, 0.975446, 1)
-energy = 0.5
-texture_scale = 5.56
+position = Vector2(0, -3)
+color = Color(0.996078, 0.996078, 0.996078, 1)
+energy = 0.6
+shadow_color = Color(0, 0, 0, 0.882353)
+shadow_filter = 1
+shadow_filter_smooth = 3.0
+texture_scale = 4.34
 
 [node name="SceneTransition" parent="." instance=ExtResource("10_opffu")]
 transition_name = "fade_in"
@@ -128,5 +135,6 @@ collision_mask = 32
 shape = SubResource("RectangleShape2D_delou")
 
 [node name="CameraInGame" parent="." instance=ExtResource("3_ps3tp")]
+ignore_rotation = false
 
 [connection signal="animation_looped" from="AnimatedSprite2D" to="AnimatedSprite2D" method="_on_animation_looped"]

@@ -105,6 +105,7 @@ animations = [{
 }]
 
 [node name="WaterSplash" type="Area2D"]
+z_index = 100
 collision_layer = 0
 collision_mask = 33
 script = ExtResource("1_nvjqy")

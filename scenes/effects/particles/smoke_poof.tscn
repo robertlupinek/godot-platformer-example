@@ -12,6 +12,7 @@ offsets = PackedFloat32Array(0.160326, 0.415761, 0.918478)
 colors = PackedColorArray(0.997059, 0.967134, 0.952659, 1, 0.815686, 0.815686, 0.545098, 1, 0, 0, 0, 1)
 
 [node name="SmokePoof" type="CPUParticles2D"]
+z_index = 10
 emitting = false
 amount = 30
 lifetime = 0.5

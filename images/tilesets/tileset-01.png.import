@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0kpd0hw080v3"
-path="res://.godot/imported/apple.png-90638a2a4a45bf9490a3e4793d704f1e.ctex"
+uid="uid://bfpy3k14oqrbg"
+path="res://.godot/imported/tileset-01.png-7fc743c3242c8917346aab76518d85c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/sprites/collectables/apple.png"
-dest_files=["res://.godot/imported/apple.png-90638a2a4a45bf9490a3e4793d704f1e.ctex"]
+source_file="res://images/tilesets/tileset-01.png"
+dest_files=["res://.godot/imported/tileset-01.png-7fc743c3242c8917346aab76518d85c3.ctex"]
 
 [params]
 

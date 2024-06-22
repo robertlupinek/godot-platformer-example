@@ -21,6 +21,7 @@ size_flags_vertical = 3
 theme = ExtResource("1_4ie68")
 script = ExtResource("2_4ye5d")
 click_sound = ExtResource("3_rbu8k")
+first_scene = "res://scenes/levels/level_01.tscn"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1

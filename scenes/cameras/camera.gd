@@ -1,6 +1,7 @@
 extends Camera2D
 
 var shake_timer = Timer.new()
+var shake_force: float = 1
 var rand = RandomNumberGenerator.new()
 var flash_alpha: float = 0
 @export var snowing: bool = false
@@ -27,15 +28,18 @@ func _process(delta):
 		flash_alpha = 0
 
 	if not shake_timer.is_stopped():
-		offset = Vector2(rand.randf_range(-1,1),rand.randf_range(-1,1))
-		rotation = rand.randf_range(-0.02,0.02)
+		var offset_amount = 10 * shake_force
+		var rotation_amount = 0.05 * shake_force
+		offset = Vector2(rand.randf_range(-offset_amount,offset_amount),rand.randf_range(-offset_amount,offset_amount))
+		rotation = rand.randf_range(-rotation_amount,rotation_amount)
 	else:
 		offset = Vector2(0,0)
 		rotation = 0
 
 		
-func _shake(time: float = 0.5):
+func _shake(time: float = 0.5,force:float = 1):
 	# Triggered via the GameFX scree_shake emitter.
+	shake_force = force
 	shake_timer.start(time)
 			
 func _snow(on: bool = true):
